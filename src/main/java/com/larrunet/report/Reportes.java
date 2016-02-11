@@ -4,6 +4,7 @@
  */
 package com.larrunet.report;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,14 +27,16 @@ public class Reportes {
     private JasperPrint jp;
 
     public Reportes() {
-        rutaReportes = System.getProperty("user.dir") + "/src/main/java/com/larrunet/report/";
+        //rutaReportes = System.getProperty("user.dir") + "/src/main/java/com/larrunet/report/";
+        //rutaReportes = getClass().getResource("/com/larrunet/report/").toString();
     }
 
     public void prepararInforme(String nombreInforme, Map parametros, Connection cn) {
         informe = null;
         String ruta = rutaReportes + nombreInforme;
+        URL url = getClass().getResource("/report/"+nombreInforme);
         try {
-            informe = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+            informe = (JasperReport) JRLoader.loadObject(url);
             jp = JasperFillManager.fillReport(informe, parametros, cn);   
         } catch (JRException e) {
             System.out.println(e.getMessage());
