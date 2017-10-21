@@ -29,7 +29,7 @@ public class Hotspot implements Serializable {
     @Column(name = "IP")
     private String IP;
     
-    @Column(name = "IdHotspot")
+    @Column(name = "IdMikrotik")
     private String idMikrotik;
     
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
