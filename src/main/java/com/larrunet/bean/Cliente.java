@@ -7,11 +7,13 @@ package com.larrunet.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -48,6 +50,9 @@ public class Cliente implements Serializable{
     
     @OneToOne(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Servicio servicio;
+    
+    @OneToMany(mappedBy = "cliente")
+    private List<Pago> pagos;
     
     public Cliente() {
     }
@@ -139,6 +144,14 @@ public class Cliente implements Serializable{
         this.servicio = servicio;
     }
     
+    public List<Pago> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<Pago> pagos) {
+        this.pagos = pagos;
+    }
+    
     @Override
     public String toString() {
         return "Cliente{" + "codCliente=" + codCliente 
@@ -154,6 +167,6 @@ public class Cliente implements Serializable{
     }
 
     
-    
-    
+
+     
 }

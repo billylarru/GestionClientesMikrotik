@@ -6,9 +6,12 @@
 package com.larrunet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,6 +31,9 @@ public class Linea implements Serializable{
     @Column(name = "EstadoLinea")
     private String estadoLinea;
 
+    @OneToMany(mappedBy = "linea")
+    private List<Hotspot> hotspots = new ArrayList<>();
+    
     public Linea() {
     }
 
@@ -61,10 +67,20 @@ public class Linea implements Serializable{
         this.estadoLinea = estadoLinea;
     }
 
+    public List<Hotspot> getHotspots() {
+        return hotspots;
+    }
+
+    public void setHotspots(List<Hotspot> hotspots) {
+        this.hotspots = hotspots;
+    }
+    
     @Override
     public String toString() {
         return "Linea{" + "codLinea=" + codLinea + ", descripLinea=" + descripLinea + ", estadoLinea=" + estadoLinea + '}';
     }
+
+    
     
     
     

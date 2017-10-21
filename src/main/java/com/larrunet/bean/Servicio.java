@@ -7,6 +7,7 @@ package com.larrunet.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -49,6 +51,9 @@ public class Servicio implements Serializable{
     @Column(name = "EstadoServicio")
     private String estadoServicio;
 
+    @OneToMany(mappedBy = "servicio")
+    private List<Hotspot> hotspots;
+    
     public Servicio() {
     }
 
@@ -136,11 +141,21 @@ public class Servicio implements Serializable{
     public void setEstadoServicio(String estadoServicio) {
         this.estadoServicio = estadoServicio;
     }
+    
+    public List<Hotspot> getHotspots() {
+        return hotspots;
+    }
+
+    public void setHotspots(List<Hotspot> hotspots) {
+        this.hotspots = hotspots;
+    }
 
     @Override
     public String toString() {
         return "Servicio{" + "codServicio=" + codServicio + ", pagoMensual=" + pagoMensual + ", observacion=" + observacion + ", fechaCorte=" + fechaCorte + ", estadoServicio=" + estadoServicio + '}';
     }
+
+    
 
     
 }
