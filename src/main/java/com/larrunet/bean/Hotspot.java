@@ -40,7 +40,7 @@ public class Hotspot implements Serializable {
     @JoinColumn(name = "CodLinea")
     private Linea linea;
     
-    @Column(name = "EstadoHostpot")
+    @Column(name = "EstadoHotspot")
     private String estadoHostpot;
 
     public Hotspot() {
