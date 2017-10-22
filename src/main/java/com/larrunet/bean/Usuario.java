@@ -5,6 +5,7 @@
  */
 package com.larrunet.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,10 +40,10 @@ public class Usuario {
     @Column(name = "EstadoUsuario")
     private String estadoUsuario;
     
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private Personal personal;
     
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private UsuarioMikrotik usuarioMikrotik;
 
     public Usuario() {

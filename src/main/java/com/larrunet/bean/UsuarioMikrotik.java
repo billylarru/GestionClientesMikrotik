@@ -32,7 +32,7 @@ public class UsuarioMikrotik implements Serializable {
     @Column(name = "PasswordMikrotik")
     private String passwordMikrotik;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "CodUsuario")
     private Usuario usuario;
     

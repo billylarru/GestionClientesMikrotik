@@ -6,6 +6,7 @@
 package com.larrunet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -51,8 +52,8 @@ public class Servicio implements Serializable{
     @Column(name = "EstadoServicio")
     private String estadoServicio;
 
-    @OneToMany(mappedBy = "servicio")
-    private List<Hotspot> hotspots;
+    @OneToMany(mappedBy = "servicio", cascade = {CascadeType.ALL})
+    private List<Hotspot> hotspots = new ArrayList<>();
     
     public Servicio() {
     }

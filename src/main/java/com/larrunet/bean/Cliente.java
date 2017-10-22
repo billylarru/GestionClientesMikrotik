@@ -6,6 +6,7 @@
 package com.larrunet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -52,7 +53,7 @@ public class Cliente implements Serializable{
     private Servicio servicio;
     
     @OneToMany(mappedBy = "cliente")
-    private List<Pago> pagos;
+    private List<Pago> pagos = new ArrayList<>();
     
     public Cliente() {
     }
