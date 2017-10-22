@@ -7,7 +7,6 @@ package com.larrunet.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import java.time.LocalDateTime;
 /**
  *
  * @author kael
@@ -44,7 +43,7 @@ public class Cliente implements Serializable{
     private String direccionCliente;
     
     @Column(name = "FechaRegistroCliente")
-    private Date fechaRegistroCliente;
+    private LocalDateTime fechaRegistroCliente;
     
     @Column(name = "EstadoCliente")
     private String estadoCliente;
@@ -58,7 +57,7 @@ public class Cliente implements Serializable{
     public Cliente() {
     }
 
-    public Cliente(String codCliente, String nombresCliente, String apePaternoCliente, String apeMaternoCliente, String direccionCliente, Date fechaRegistroCliente, String estadoCliente) {
+    public Cliente(String codCliente, String nombresCliente, String apePaternoCliente, String apeMaternoCliente, String direccionCliente, LocalDateTime fechaRegistroCliente, String estadoCliente) {
         this.codCliente = codCliente;
         this.nombresCliente = nombresCliente;
         this.apePaternoCliente = apePaternoCliente;
@@ -68,7 +67,7 @@ public class Cliente implements Serializable{
         this.estadoCliente = estadoCliente;
     }
 
-    public Cliente(String codCliente, String nombresCliente, String apePaternoCliente, String apeMaternoCliente, String direccionCliente, Date fechaRegistroCliente, String estadoCliente, Servicio servicio) {
+    public Cliente(String codCliente, String nombresCliente, String apePaternoCliente, String apeMaternoCliente, String direccionCliente, LocalDateTime fechaRegistroCliente, String estadoCliente, Servicio servicio) {
         this.codCliente = codCliente;
         this.nombresCliente = nombresCliente;
         this.apePaternoCliente = apePaternoCliente;
@@ -121,11 +120,11 @@ public class Cliente implements Serializable{
         this.direccionCliente = direccionCliente;
     }
 
-    public Date getFechaRegistroCliente() {
+    public LocalDateTime getFechaRegistroCliente() {
         return fechaRegistroCliente;
     }
 
-    public void setFechaRegistroCliente(Date fechaRegistroCliente) {
+    public void setFechaRegistroCliente(LocalDateTime fechaRegistroCliente) {
         this.fechaRegistroCliente = fechaRegistroCliente;
     }
 

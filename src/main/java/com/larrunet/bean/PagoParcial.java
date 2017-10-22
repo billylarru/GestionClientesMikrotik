@@ -6,7 +6,6 @@
 package com.larrunet.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import java.time.LocalDateTime;
 /**
  *
  * @author kael
@@ -36,7 +35,7 @@ public class PagoParcial implements Serializable {
     private Double monto;
     
     @Column(name = "FechaPago")
-    private Date fechaPago;
+    private LocalDateTime fechaPago;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CodPersonal")
@@ -48,14 +47,14 @@ public class PagoParcial implements Serializable {
     public PagoParcial() {
     }
 
-    public PagoParcial(Integer idPagoParcial, Double monto, Date fechaPago, String estadoPagoParcial) {
+    public PagoParcial(Integer idPagoParcial, Double monto, LocalDateTime fechaPago, String estadoPagoParcial) {
         this.idPagoParcial = idPagoParcial;
         this.monto = monto;
         this.fechaPago = fechaPago;
         this.estadoPagoParcial = estadoPagoParcial;
     }
 
-    public PagoParcial(Integer idPagoParcial, Pago pago, Double monto, Date fechaPago, Personal personal, String estadoPagoParcial) {
+    public PagoParcial(Integer idPagoParcial, Pago pago, Double monto, LocalDateTime fechaPago, Personal personal, String estadoPagoParcial) {
         this.idPagoParcial = idPagoParcial;
         this.pago = pago;
         this.monto = monto;
@@ -88,11 +87,11 @@ public class PagoParcial implements Serializable {
         this.monto = monto;
     }
 
-    public Date getFechaPago() {
+    public LocalDateTime getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(LocalDateTime fechaPago) {
         this.fechaPago = fechaPago;
     }
 

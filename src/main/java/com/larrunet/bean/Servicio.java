@@ -7,7 +7,6 @@ package com.larrunet.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import java.time.LocalDateTime;
 /**
  *
  * @author kael
@@ -39,7 +38,7 @@ public class Servicio implements Serializable{
     private String observacion;
     
     @Column(name = "FechaCorte")
-    private Date fechaCorte;
+    private LocalDateTime fechaCorte;
     
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "CodCliente")
@@ -58,7 +57,7 @@ public class Servicio implements Serializable{
     public Servicio() {
     }
 
-    public Servicio(String codServicio, double pagoMensual, String observacion, Date fechaCorte, Cliente cliente, Antena antena, String estadoServicio) {
+    public Servicio(String codServicio, double pagoMensual, String observacion, LocalDateTime fechaCorte, Cliente cliente, Antena antena, String estadoServicio) {
         this.codServicio = codServicio;
         this.pagoMensual = pagoMensual;
         this.observacion = observacion;
@@ -68,7 +67,7 @@ public class Servicio implements Serializable{
         this.estadoServicio = estadoServicio;
     }
 
-    public Servicio(String codServicio, double pagoMensual, String observacion, Date fechaCorte, Cliente cliente, String estadoServicio) {
+    public Servicio(String codServicio, double pagoMensual, String observacion, LocalDateTime fechaCorte, Cliente cliente, String estadoServicio) {
         this.codServicio = codServicio;
         this.pagoMensual = pagoMensual;
         this.observacion = observacion;
@@ -77,7 +76,7 @@ public class Servicio implements Serializable{
         this.estadoServicio = estadoServicio;
     }
 
-    public Servicio(String codServicio, double pagoMensual, String observacion, Date fechaCorte, String estadoServicio) {
+    public Servicio(String codServicio, double pagoMensual, String observacion, LocalDateTime fechaCorte, String estadoServicio) {
         this.codServicio = codServicio;
         this.pagoMensual = pagoMensual;
         this.observacion = observacion;
@@ -111,11 +110,11 @@ public class Servicio implements Serializable{
         this.observacion = observacion;
     }
 
-    public Date getFechaCorte() {
+    public LocalDateTime getFechaCorte() {
         return fechaCorte;
     }
 
-    public void setFechaCorte(Date fechaCorte) {
+    public void setFechaCorte(LocalDateTime fechaCorte) {
         this.fechaCorte = fechaCorte;
     }
 

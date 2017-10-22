@@ -7,7 +7,6 @@ package com.larrunet.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  *
@@ -31,13 +32,13 @@ public class Pago implements Serializable {
     private Integer idPago;
     
     @Column(name = "FechaEmision")
-    private Date fechaEmision;
+    private LocalDateTime fechaEmision;
     
     @Column(name = "FechaInicio")
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     
     @Column(name = "FechaVencimiento")
-    private Date fechaVencimiento;
+    private LocalDate fechaVencimiento;
     
     @Column(name = "MontoPago")
     private Double montoPago;
@@ -59,7 +60,7 @@ public class Pago implements Serializable {
     public Pago() {
     }
 
-    public Pago(Integer idPago, Date fechaEmision, Date fechaInicio, Date fechaVencimiento, Double montoPago, String estadoPago) {
+    public Pago(Integer idPago, LocalDateTime fechaEmision, LocalDate fechaInicio, LocalDate fechaVencimiento, Double montoPago, String estadoPago) {
         this.idPago = idPago;
         this.fechaEmision = fechaEmision;
         this.fechaInicio = fechaInicio;
@@ -68,7 +69,7 @@ public class Pago implements Serializable {
         this.estadoPago = estadoPago;
     }
 
-    public Pago(Integer idPago, Date fechaEmision, Date fechaInicio, Date fechaVencimiento, Double montoPago, Personal personal, Cliente cliente, String estadoPago) {
+    public Pago(Integer idPago, LocalDateTime fechaEmision, LocalDate fechaInicio, LocalDate fechaVencimiento, Double montoPago, Personal personal, Cliente cliente, String estadoPago) {
         this.idPago = idPago;
         this.fechaEmision = fechaEmision;
         this.fechaInicio = fechaInicio;
@@ -79,7 +80,7 @@ public class Pago implements Serializable {
         this.estadoPago = estadoPago;
     }
 
-    public Pago(Integer idPago, Date fechaEmision, Date fechaInicio, Date fechaVencimiento, Double montoPago, Personal personal, Cliente cliente, String estadoPago, List<PagoParcial> pagosParcial) {
+    public Pago(Integer idPago, LocalDateTime fechaEmision, LocalDate fechaInicio, LocalDate fechaVencimiento, Double montoPago, Personal personal, Cliente cliente, String estadoPago, List<PagoParcial> pagosParcial) {
         this.idPago = idPago;
         this.fechaEmision = fechaEmision;
         this.fechaInicio = fechaInicio;
@@ -99,27 +100,27 @@ public class Pago implements Serializable {
         this.idPago = idPago;
     }
 
-    public Date getFechaEmision() {
+    public LocalDateTime getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(Date fechaEmision) {
+    public void setFechaEmision(LocalDateTime fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 

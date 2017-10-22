@@ -7,7 +7,7 @@ package com.larrunet.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,7 +39,7 @@ public class Personal implements Serializable {
     private String apeMaternoPersonal;
     
     @Column(name = "FechaRegistroPersonal")
-    private Date fechaRegistroPersonal;
+    private LocalDateTime fechaRegistroPersonal;
     
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "CodUsuario")
@@ -57,7 +57,7 @@ public class Personal implements Serializable {
     public Personal() {
     }
 
-    public Personal(String codPersonal, String nombrePersonal, String apePaternoPersonal, String apeMaternoPersonal, Date fechaRegistroPersonal, String estadoPersonal) {
+    public Personal(String codPersonal, String nombrePersonal, String apePaternoPersonal, String apeMaternoPersonal, LocalDateTime fechaRegistroPersonal, String estadoPersonal) {
         this.codPersonal = codPersonal;
         this.nombrePersonal = nombrePersonal;
         this.apePaternoPersonal = apePaternoPersonal;
@@ -66,7 +66,7 @@ public class Personal implements Serializable {
         this.estadoPersonal = estadoPersonal;
     }
 
-    public Personal(String codPersonal, String nombrePersonal, String apePaternoPersonal, String apeMaternoPersonal, Date fechaRegistroPersonal, Usuario usuario, String estadoPersonal) {
+    public Personal(String codPersonal, String nombrePersonal, String apePaternoPersonal, String apeMaternoPersonal, LocalDateTime fechaRegistroPersonal, Usuario usuario, String estadoPersonal) {
         this.codPersonal = codPersonal;
         this.nombrePersonal = nombrePersonal;
         this.apePaternoPersonal = apePaternoPersonal;
@@ -108,11 +108,11 @@ public class Personal implements Serializable {
         this.apeMaternoPersonal = apeMaternoPersonal;
     }
 
-    public Date getFechaRegistroPersonal() {
+    public LocalDateTime getFechaRegistroPersonal() {
         return fechaRegistroPersonal;
     }
 
-    public void setFechaRegistroPersonal(Date fechaRegistroPersonal) {
+    public void setFechaRegistroPersonal(LocalDateTime fechaRegistroPersonal) {
         this.fechaRegistroPersonal = fechaRegistroPersonal;
     }
 
