@@ -78,8 +78,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
         if(iframe==null){
             
-  //          if(key.equalsIgnoreCase("Clientes")) iframe=new IFrm_Clientes();
-//            else if(key.equalsIgnoreCase("Antenas")) iframe=new IFrm_Antenas();
+  /*          if(key.equalsIgnoreCase("Clientes")) iframe=new IFrm_Clientes();
+            else*/ if(key.equalsIgnoreCase("Antenas")) iframe=new IFrm_Antenas();
            // else if(key.equalsIgnoreCase("Usuarios")) iframe=new IFrm_Usuarios();
             
 
