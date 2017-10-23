@@ -29,7 +29,7 @@ public class Personal implements Serializable {
     @Column(name = "CodPersonal")
     private String codPersonal;
     
-    @Column(name = "NombrePersonal")
+    @Column(name = "NombresPersonal")
     private String nombrePersonal;
     
     @Column(name = "ApePaternoPersonal")
