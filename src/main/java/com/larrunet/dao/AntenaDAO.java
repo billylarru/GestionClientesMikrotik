@@ -27,4 +27,15 @@ public class AntenaDAO {
         manager.close();
         return list;
     }
+    
+    public boolean registrarAntena(Antena antena){
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        manager.getTransaction().begin();
+        
+        manager.persist(antena);
+        
+        manager.getTransaction().commit();
+        manager.close();
+        return false;
+    }
 }

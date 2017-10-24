@@ -251,17 +251,17 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
             }
 */
         } else {
-            /*
-            antena = new AntenaEmisora();
-            antena.setDescripcion(txtDescripcion.getText());
-            antena.setEstado_antena(txtEstado.getText());
+            
+            antena = new Antena();
+            antena.setDescripAntena(txtDescripcion.getText());
+            antena.setEstadoAntena(txtEstado.getText());
             if (daoAntenas.registrarAntena(antena)) {
                 JOptionPane.showMessageDialog(this, "¡Antena registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
                 listarAntenas();
                 limpiar();
             } else {
                 JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
-            }*/
+            }
         }
 
     }
