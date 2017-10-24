@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import javax.persistence.GeneratedValue;
+import org.hibernate.annotations.GenericGenerator;
 /**
  *
  * @author kael
@@ -27,6 +29,8 @@ import java.time.LocalDateTime;
 public class Cliente implements Serializable{
     
     @Id
+    @GenericGenerator(name = "sequence_cliente_id", strategy = "com.larrunet.util.ClienteIdGenerator")
+    @GeneratedValue(generator = "sequence_cliente_id")
     @Column(name = "CodCliente")
     private String codCliente;
     

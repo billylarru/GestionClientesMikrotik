@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import javax.persistence.GeneratedValue;
+import org.hibernate.annotations.GenericGenerator;
 /**
  *
  * @author kael
@@ -28,6 +30,8 @@ import java.time.LocalDateTime;
 @Table(name = "SERVICIO")
 public class Servicio implements Serializable{
     @Id
+    @GenericGenerator(name = "sequence_servicio_id", strategy = "com.larrunet.util.ServicioIdGenerator")
+    @GeneratedValue(generator = "sequence_servicio_id")
     @Column(name = "CodServicio")
     private String codServicio;
     
