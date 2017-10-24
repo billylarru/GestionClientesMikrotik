@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -22,6 +24,8 @@ import javax.persistence.Table;
 @Table(name = "LINEA")
 public class Linea implements Serializable{
     @Id
+    @GenericGenerator(name = "sequence_linea_id", strategy = "com.larrunet.util.LineaIdGenerator")
+    @GeneratedValue(generator = "sequence_linea_id")
     @Column(name = "CodLinea")
     private String codLinea;
     
