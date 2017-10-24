@@ -237,7 +237,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         if (editar) {
             antena.setDescripAntena(txtDescripcion.getText());
             antena.setEstadoAntena(txtEstado.getText());
-/*
+
             if (daoAntenas.modificarAntena(antena)) {
                 listarAntenas();
                 JOptionPane.showMessageDialog(this, "¡Actualizado!", "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
@@ -249,7 +249,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "¡No se pudo guardar los cambios!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-*/
+
         } else {
             
             antena = new Antena();
@@ -269,11 +269,11 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     void editar() {
         int selectedRow = tblAntenas.getSelectedRow();
         antena = listaAntenas.get(selectedRow);
-/*
-        txtIdAntena.setText(Integer.toString(antena.getIdAntena()));
-        txtDescripcion.setText(antena.getDescripcion());
-        txtEstado.setText(antena.getEstado_antena());
-*/
+
+        txtIdAntena.setText(antena.getCodAntena());
+        txtDescripcion.setText(antena.getDescripAntena());
+        txtEstado.setText(antena.getEstadoAntena());
+
         editar = true;
         btnCancelar.setVisible(true);
         btnRegistrar.setText("Guardar cambios");

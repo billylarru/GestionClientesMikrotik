@@ -38,4 +38,15 @@ public class AntenaDAO {
         manager.close();
         return false;
     }
+    
+    public boolean modificarAntena(Antena antena){
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        manager.getTransaction().begin();
+        
+        manager.merge(antena);
+        
+        manager.getTransaction().commit();
+        manager.close();
+        return false;
+    }
 }
