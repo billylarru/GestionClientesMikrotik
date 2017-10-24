@@ -42,7 +42,7 @@ public class AntenaDAO {
         return registrado;
     }
     
-    public boolean modificarAntena(Antena antena){
+    public void modificarAntena(Antena antena){
         EntityManager manager = EMF.getInstance().createEntityManager();
         manager.getTransaction().begin();
         
@@ -50,12 +50,13 @@ public class AntenaDAO {
         
         manager.getTransaction().commit();
         manager.close();
-        return false;
     }
     
     public boolean eliminarAntena(Antena antena){
+        boolean eliminado = false;
         antena.setEstadoAntena("ELIMINADO");
-        boolean result = modificarAntena(antena);
-        return result;
+        modificarAntena(antena);
+        eliminado = antena.getEstadoAntena().equals("ELIMINADO")?true:false;
+        return eliminado;
     }
 }

@@ -238,7 +238,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
             antena.setDescripAntena(txtDescripcion.getText());
             antena.setEstadoAntena(txtEstado.getText());
 
-            if (daoAntenas.modificarAntena(antena)) {
+            daoAntenas.modificarAntena(antena);
                 listarAntenas();
                 JOptionPane.showMessageDialog(this, "¡Actualizado!", "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
@@ -246,10 +246,6 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 btnRegistrar.setText("Registrar");
                 editar = false;
                 btnCancelar.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "¡No se pudo guardar los cambios!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-
         } else {
             
             antena = new Antena();
