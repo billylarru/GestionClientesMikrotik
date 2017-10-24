@@ -29,14 +29,17 @@ public class AntenaDAO {
     }
     
     public boolean registrarAntena(Antena antena){
+        boolean registrado = false;
         EntityManager manager = EMF.getInstance().createEntityManager();
         manager.getTransaction().begin();
         
         manager.persist(antena);
         
         manager.getTransaction().commit();
+        
+        registrado = antena.getCodAntena()==null?false:true;
         manager.close();
-        return false;
+        return registrado;
     }
     
     public boolean modificarAntena(Antena antena){
