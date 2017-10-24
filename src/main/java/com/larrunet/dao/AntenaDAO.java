@@ -49,4 +49,10 @@ public class AntenaDAO {
         manager.close();
         return false;
     }
+    
+    public boolean eliminarAntena(Antena antena){
+        antena.setEstadoAntena("ELIMINADO");
+        boolean result = modificarAntena(antena);
+        return result;
+    }
 }

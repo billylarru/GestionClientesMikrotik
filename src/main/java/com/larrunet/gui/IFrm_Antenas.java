@@ -288,14 +288,14 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         int respuesta = JOptionPane.showConfirmDialog(this, msg, "CONFIRMAR ELIMINACION", JOptionPane.YES_NO_OPTION);
         
         if(respuesta == JOptionPane.YES_OPTION){
-           /* 
-            if(daoAntenas.eliminarAntena(antena.getCodAntena())){
+            
+            if(daoAntenas.eliminarAntena(antena)){
                 JOptionPane.showMessageDialog(this, "¡Antena eliminada exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
                 listarAntenas();
             }else{
                 JOptionPane.showMessageDialog(this, "¡Hubo un error al eliminar!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-         */   
+           
         }
         
         
