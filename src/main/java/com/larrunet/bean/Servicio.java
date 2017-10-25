@@ -152,6 +152,16 @@ public class Servicio implements Serializable{
 
     public void setHotspots(List<Hotspot> hotspots) {
         this.hotspots = hotspots;
+        for(Hotspot hotspot : hotspots){
+            hotspot.setServicio(this);
+        }
+    }
+    
+    public void addHotspot(Hotspot hotspot){
+        if(!hotspots.contains(hotspot)){
+            hotspots.add(hotspot);
+            hotspot.setServicio(this);
+        }
     }
 
     @Override
