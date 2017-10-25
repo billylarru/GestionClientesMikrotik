@@ -24,7 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "LINEA")
 public class Linea implements Serializable{
     @Id
-    @GenericGenerator(name = "sequence_linea_id", strategy = "com.larrunet.util.LineaIdGenerator")
+    @GenericGenerator(name = "sequence_linea_id", strategy = "com.larrunet.util.generators.LineaIdGenerator")
     @GeneratedValue(generator = "sequence_linea_id")
     @Column(name = "CodLinea")
     private String codLinea;

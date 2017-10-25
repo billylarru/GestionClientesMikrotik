@@ -25,7 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "ANTENA_EMISORA")
 public class Antena implements Serializable{
     @Id
-    @GenericGenerator(name = "sequence_antena_id", strategy = "com.larrunet.util.AntenaIdGenerator")
+    @GenericGenerator(name = "sequence_antena_id", strategy = "com.larrunet.util.generators.AntenaIdGenerator")
     @GeneratedValue(generator = "sequence_antena_id")
     @Column(name = "CodAntena")
     private String codAntena;

@@ -29,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Cliente implements Serializable{
     
     @Id
-    @GenericGenerator(name = "sequence_cliente_id", strategy = "com.larrunet.util.ClienteIdGenerator")
+    @GenericGenerator(name = "sequence_cliente_id", strategy = "com.larrunet.util.generators.ClienteIdGenerator")
     @GeneratedValue(generator = "sequence_cliente_id")
     @Column(name = "CodCliente")
     private String codCliente;

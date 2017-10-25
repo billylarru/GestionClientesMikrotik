@@ -30,7 +30,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "SERVICIO")
 public class Servicio implements Serializable{
     @Id
-    @GenericGenerator(name = "sequence_servicio_id", strategy = "com.larrunet.util.ServicioIdGenerator")
+    @GenericGenerator(name = "sequence_servicio_id", strategy = "com.larrunet.util.generators.ServicioIdGenerator")
     @GeneratedValue(generator = "sequence_servicio_id")
     @Column(name = "CodServicio")
     private String codServicio;
