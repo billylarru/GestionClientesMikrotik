@@ -141,7 +141,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservacion = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
-        rbtActivo = new javax.swing.JRadioButton();
+        rbtHabilitado = new javax.swing.JRadioButton();
         rbtCortado = new javax.swing.JRadioButton();
         rbtEnPruebas = new javax.swing.JRadioButton();
         cboAntenaEmisora = new javax.swing.JComboBox<>();
@@ -167,7 +167,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Apellido Materno:");
 
-        jLabel4.setText("IdCliente:");
+        jLabel4.setText("CodCliente:");
 
         txtIdCliente.setEditable(false);
 
@@ -184,8 +184,8 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -250,9 +250,9 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Estado del servicio:");
 
-        bgEstadoServicio.add(rbtActivo);
-        rbtActivo.setSelected(true);
-        rbtActivo.setText("Activo");
+        bgEstadoServicio.add(rbtHabilitado);
+        rbtHabilitado.setSelected(true);
+        rbtHabilitado.setText("Habilitado");
 
         bgEstadoServicio.add(rbtCortado);
         rbtCortado.setText("Cortado");
@@ -274,26 +274,29 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(30, 30, 30)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cboAntenaEmisora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(183, 183, 183))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(rbtActivo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(rbtCortado)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(rbtEnPruebas))
-                        .addComponent(txtPagoMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(rbtHabilitado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtCortado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtEnPruebas)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtPagoMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cboAntenaEmisora, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +315,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(rbtActivo)
+                    .addComponent(rbtHabilitado)
                     .addComponent(rbtCortado)
                     .addComponent(rbtEnPruebas))
                 .addContainerGap())
@@ -360,7 +363,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -370,8 +373,8 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -415,12 +418,19 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "IdCliente", "Cliente", "Pago mensual", "Estado"
+                "CodCliente", "Cliente", "Pago mensual", "Estado"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -558,12 +568,12 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 int indiceAntena = cboAntenaEmisora.getSelectedIndex();
                 servicio.setAntena(listaAntenas.get(indiceAntena - 1));
 
-                if (rbtActivo.isSelected()) {
-                    servicio.setEstadoServicio("Activo");
+                if (rbtHabilitado.isSelected()) {
+                    servicio.setEstadoServicio("HABILITADO");
                 } else if (rbtCortado.isSelected()) {
-                    servicio.setEstadoServicio("Cortado");
+                    servicio.setEstadoServicio("CORTADO");
                 } else if (rbtEnPruebas.isSelected()) {
-                    servicio.setEstadoServicio("En pruebas");
+                    servicio.setEstadoServicio("EN PRUEBAS");
                 }
 
                 daoservicios.modificarServicio(servicio);
@@ -582,18 +592,17 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 cliente.setApeMaternoCliente(txtApellidoMaterno.getText());
                 cliente.setDireccionCliente(txtDireccion.getText());
                 cliente.setAliasCliente(txtAlias.getText());
-                cliente.setServicio(servicio);
                 cliente.setFechaRegistroCliente(LocalDateTime.now());
                 
                 servicio.setPagoMensual(Double.parseDouble(txtPagoMensual.getText()));
                 servicio.setObservacion(txtObservacion.getText());
 
-                if (rbtActivo.isSelected()) {
-                    servicio.setEstadoServicio("Activo");
+                if (rbtHabilitado.isSelected()) {
+                    servicio.setEstadoServicio("HABILITADO");
                 } else if (rbtCortado.isSelected()) {
-                    servicio.setEstadoServicio("Cortado");
+                    servicio.setEstadoServicio("CORTADO");
                 } else if (rbtEnPruebas.isSelected()) {
-                    servicio.setEstadoServicio("En pruebas");
+                    servicio.setEstadoServicio("EN PRUEBAS");
                 }
 
                 int indiceAntena = cboAntenaEmisora.getSelectedIndex();
@@ -622,8 +631,10 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         clearTxt(txtApellidoMaterno);
         clearTxt(txtDireccion);
         clearTxt(txtPagoMensual);
+        clearTxt(txtAlias);
         txtObservacion.setText(null);
         cboAntenaEmisora.setSelectedIndex(0);
+        servicio = null;
         hotspots = null;
         limpiarTablaHotspots();
     }
@@ -687,6 +698,10 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     }
 
     private void editarCliente() {
+        
+        if(editar){
+            limpiarCampos();
+        }
         int selectedRow = tblClientes.getSelectedRow();
         servicio = listaClientes.get(selectedRow);
 
@@ -708,7 +723,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         switch (servicio.getEstadoServicio()) {
             case "Activo":
-                rbtActivo.setSelected(true);
+                rbtHabilitado.setSelected(true);
                 break;
             case "Cortado":
                 rbtCortado.setSelected(true);
@@ -789,9 +804,9 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JRadioButton rbtActivo;
     private javax.swing.JRadioButton rbtCortado;
     private javax.swing.JRadioButton rbtEnPruebas;
+    private javax.swing.JRadioButton rbtHabilitado;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblHotspot;
     private javax.swing.JTextField txtAlias;
