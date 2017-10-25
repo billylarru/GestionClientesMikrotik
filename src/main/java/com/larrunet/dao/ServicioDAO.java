@@ -5,6 +5,7 @@
  */
 package com.larrunet.dao;
 
+import com.larrunet.bean.Hotspot;
 import com.larrunet.bean.Servicio;
 import com.larrunet.util.EMF;
 import java.util.List;
@@ -23,6 +24,10 @@ public class ServicioDAO {
         
         list = (List<Servicio>) manager.createQuery(jpql).getResultList();
         
+        for(Servicio servicio : list){
+            servicio.getAntena().getCodAntena();
+            servicio.getHotspots().forEach(h->h.getLinea().getCodLinea());
+        }
         manager.close();
         return list;
     }
