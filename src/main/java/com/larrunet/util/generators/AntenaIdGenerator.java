@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.larrunet.util;
+package com.larrunet.util.generators;
+
 
 /**
  *
  * @author kael
  */
-public class ClienteIdGenerator extends CustomIdGenerator{
+public class AntenaIdGenerator extends CustomIdGenerator{
 
-    public ClienteIdGenerator() {
-        query = "select count(CodCliente) as Id from CLIENTE";
-        prefix = "C";
+    public AntenaIdGenerator(){
+        query = "select count(CodAntena) as Id from ANTENA_EMISORA";
+        prefix = "A";
         s = "000";
     }
-    
+
 }
