@@ -20,7 +20,7 @@ public class AntenaDAO {
     public List<Antena> listarAntenas(){
         List<Antena> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
-        String jpql = "From Antena";
+        String jpql = "From Antena a where a.estadoAntena!='ELIMINADO'";
         
         list = (List<Antena>) manager.createQuery(jpql).getResultList();
         

@@ -21,7 +21,7 @@ public class LineaDAO {
     public List<Linea> listar(){
         List<Linea> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
-        String jpql = "From Linea";
+        String jpql = "From Linea l where l.estadoLinea!='ELIMINADO'";
         
         list = (List<Linea>) manager.createQuery(jpql).getResultList();
         
