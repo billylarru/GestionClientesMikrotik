@@ -60,6 +60,10 @@ public class ServicioDAO {
         EntityManager manager = EMF.getInstance().createEntityManager();
         manager.getTransaction().begin();
         
+        servicio.getCliente().setEstadoCliente("ELIMINADO");
+        servicio.getHotspots().forEach(hotspot->hotspot.setEstadoHostpot("ELIMINADO"));
+        
+        
         manager.merge(servicio);
         
         manager.getTransaction().commit();
