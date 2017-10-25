@@ -31,7 +31,7 @@ public class CustomIdGenerator implements IdentifierGenerator{
         try {
             Statement statement=connection.createStatement();
 
-            ResultSet rs=statement.executeQuery("select count(CodAntena) as Id from ANTENA_EMISORA");
+            ResultSet rs=statement.executeQuery(query);
 
             if(rs.next())
             {
