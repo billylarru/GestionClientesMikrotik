@@ -6,7 +6,9 @@
 package com.larrunet.gui;
 
 import com.larrunet.bean.Antena;
+import com.larrunet.bean.Linea;
 import com.larrunet.dao.AntenaDAO;
+import com.larrunet.dao.LineaDAO;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.TableMouseListener;
 import java.awt.event.ActionEvent;
@@ -21,22 +23,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author larru
  */
-public class IFrm_Antenas extends javax.swing.JInternalFrame {
+public class IFrm_Lineas extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form IFrm_Antenas
      */
-    private AntenaDAO daoAntenas;
+    private LineaDAO daolineas;
     private JPopupMenu popupMenu;
     private JMenuItem menuItemEdit, menuItemDelete;
-    private List<Antena> listaAntenas;
+    private List<Linea> listaLineas;
     private boolean editar = false;
-    Antena antena;
+    Linea linea;
 
-    public IFrm_Antenas() {
+    public IFrm_Lineas() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
-        daoAntenas = new AntenaDAO();
+        daolineas = new LineaDAO();
         btnCancelar.setVisible(false);
         makePopUp();
         listarAntenas();
@@ -53,8 +55,8 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         menuItemEdit.addActionListener(at);
         menuItemDelete.addActionListener(at);
 
-        tblAntenas.setComponentPopupMenu(popupMenu);
-        tblAntenas.addMouseListener(new TableMouseListener(tblAntenas));
+        tblLineas.setComponentPopupMenu(popupMenu);
+        tblLineas.addMouseListener(new TableMouseListener(tblLineas));
 
         popupMenu.add(menuItemEdit);
         popupMenu.add(menuItemDelete);
@@ -62,13 +64,13 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     }
 
     void listarAntenas() {
-        DefaultTableModel model = (DefaultTableModel) tblAntenas.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblLineas.getModel();
         model.setRowCount(0);
 
-        listaAntenas = daoAntenas.listarAntenas();
+        listaLineas = daolineas.listar();
 
-        for (Antena antena : listaAntenas) {
-            Object[] row = {antena.getCodAntena(), antena.getDescripAntena(), antena.getEstadoAntena()};
+        for (Linea linea : listaLineas) {
+            Object[] row = {linea.getCodLinea(), linea.getDescripLinea(), linea.getEstadoLinea()};
             model.addRow(row);
         }
 
@@ -85,22 +87,23 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtIdAntena = new javax.swing.JTextField();
+        txtCodLinea = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAntenas = new javax.swing.JTable();
+        tblLineas = new javax.swing.JTable();
         btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Mantenimiento de Antenas emisoras");
+        setMaximizable(true);
+        setTitle("Mantenimiento de Lineas");
 
         jLabel1.setText("Id:");
 
-        txtIdAntena.setEditable(false);
+        txtCodLinea.setEditable(false);
 
         jLabel2.setText("Descripcion:");
 
@@ -121,7 +124,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDescripcion)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtIdAntena, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtEstado))
                 .addContainerGap())
@@ -132,7 +135,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtIdAntena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,7 +154,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
             }
         });
 
-        tblAntenas.setModel(new javax.swing.table.DefaultTableModel(
+        tblLineas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -167,8 +170,8 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblAntenas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblAntenas);
+        tblLineas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblLineas);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -225,8 +228,8 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     void limpiar(){
-        antena = null;
-        txtIdAntena.setText("");
+        linea = null;
+        txtCodLinea.setText("");
         txtDescripcion.setText("");
         txtEstado.setText("");
     }
@@ -235,10 +238,10 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     
     void registrarAntena() {
         if (editar) {
-            antena.setDescripAntena(txtDescripcion.getText());
-            antena.setEstadoAntena(txtEstado.getText());
+            linea.setDescripLinea(txtDescripcion.getText());
+            linea.setEstadoLinea(txtEstado.getText());
 
-            daoAntenas.modificarAntena(antena);
+            daolineas.modificarLinea(linea);
                 listarAntenas();
                 JOptionPane.showMessageDialog(this, "¡Actualizado!", "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
@@ -248,11 +251,11 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 btnCancelar.setVisible(false);
         } else {
             
-            antena = new Antena();
-            antena.setDescripAntena(txtDescripcion.getText());
-            antena.setEstadoAntena(txtEstado.getText());
-            if (daoAntenas.registrarAntena(antena)) {
-                JOptionPane.showMessageDialog(this, "¡Antena registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
+            linea = new Linea();
+            linea.setDescripLinea(txtDescripcion.getText());
+            linea.setEstadoLinea(txtEstado.getText());
+            if (daolineas.registrarLinea(linea)) {
+                JOptionPane.showMessageDialog(this, "¡Linea registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
                 listarAntenas();
                 limpiar();
             } else {
@@ -263,12 +266,12 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     }
 
     void editar() {
-        int selectedRow = tblAntenas.getSelectedRow();
-        antena = listaAntenas.get(selectedRow);
+        int selectedRow = tblLineas.getSelectedRow();
+        linea = listaLineas.get(selectedRow);
 
-        txtIdAntena.setText(antena.getCodAntena());
-        txtDescripcion.setText(antena.getDescripAntena());
-        txtEstado.setText(antena.getEstadoAntena());
+        txtCodLinea.setText(linea.getCodLinea());
+        txtDescripcion.setText(linea.getDescripLinea());
+        txtEstado.setText(linea.getEstadoLinea());
 
         editar = true;
         btnCancelar.setVisible(true);
@@ -276,17 +279,17 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     }
 
     void eliminar() {
-        int selectedRow = tblAntenas.getSelectedRow();
-        Antena antena = listaAntenas.get(selectedRow);
+        int selectedRow = tblLineas.getSelectedRow();
+        Linea linea = listaLineas.get(selectedRow);
 
-        String msg = "¿Está seguro de eliminar la antena " + antena.getDescripAntena()+ " ?";
+        String msg = "¿Está seguro de eliminar la linea " + linea.getDescripLinea()+ " ?";
 
         int respuesta = JOptionPane.showConfirmDialog(this, msg, "CONFIRMAR ELIMINACION", JOptionPane.YES_NO_OPTION);
         
         if(respuesta == JOptionPane.YES_OPTION){
             
-            if(daoAntenas.eliminarAntena(antena)){
-                JOptionPane.showMessageDialog(this, "¡Antena eliminada exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
+            if(daolineas.eliminarLinea(linea)){
+                JOptionPane.showMessageDialog(this, "¡Linea eliminada exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
                 listarAntenas();
             }else{
                 JOptionPane.showMessageDialog(this, "¡Hubo un error al eliminar!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -322,9 +325,9 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAntenas;
+    private javax.swing.JTable tblLineas;
+    private javax.swing.JTextField txtCodLinea;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtIdAntena;
     // End of variables declaration//GEN-END:variables
 }

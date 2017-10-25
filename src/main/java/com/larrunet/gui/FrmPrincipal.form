@@ -19,9 +19,9 @@
                 <Property name="text" type="java.lang.String" value="Antenas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_productos">
+            <MenuItem class="javax.swing.JMenuItem" name="mi_lineas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Productos"/>
+                <Property name="text" type="java.lang.String" value="Lineas"/>
               </Properties>
             </MenuItem>
           </SubComponents>

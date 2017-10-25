@@ -5,6 +5,7 @@
  */
 package com.larrunet.dao;
 
+import com.larrunet.bean.Antena;
 import com.larrunet.bean.Linea;
 import com.larrunet.util.EMF;
 import java.util.List;
@@ -26,5 +27,37 @@ public class LineaDAO {
         
         manager.close();
         return list;
+    }
+    
+    public boolean registrarLinea(Linea linea){
+        boolean registrado = false;
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        manager.getTransaction().begin();
+        
+        manager.persist(linea);
+        
+        manager.getTransaction().commit();
+        
+        registrado = linea.getCodLinea()==null?false:true;
+        manager.close();
+        return registrado;
+    }
+    
+    public void modificarLinea(Linea linea){
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        manager.getTransaction().begin();
+        
+        manager.merge(linea);
+        
+        manager.getTransaction().commit();
+        manager.close();
+    }
+    
+    public boolean eliminarLinea(Linea linea){
+        boolean eliminado = false;
+        linea.setEstadoLinea("ELIMINADO");
+        modificarLinea(linea);
+        eliminado = linea.getEstadoLinea().equals("ELIMINADO")?true:false;
+        return eliminado;
     }
 }

@@ -66,10 +66,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         ActionMI al=new ActionMI();
         mi_cliente.addActionListener(al);
         mi_antenas.addActionListener(al);
-        mi_productos.addActionListener(al);
+        mi_lineas.addActionListener(al);
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
-        mi_productos.setActionCommand("Productos");
+        mi_lineas.setActionCommand("Lineas");
     }
     
     private void makeIFrame(String key){
@@ -80,7 +80,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             
             if(key.equalsIgnoreCase("Clientes")) iframe=new IFrm_Clientes();
             else if(key.equalsIgnoreCase("Antenas")) iframe=new IFrm_Antenas();
-           // else if(key.equalsIgnoreCase("Usuarios")) iframe=new IFrm_Usuarios();
+            else if(key.equalsIgnoreCase("Lineas")) iframe=new IFrm_Lineas();
             
 
             HashList.getInstance().getList().put(key, iframe);
@@ -115,7 +115,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mi_cliente = new javax.swing.JMenuItem();
         mi_antenas = new javax.swing.JMenuItem();
-        mi_productos = new javax.swing.JMenuItem();
+        mi_lineas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -177,8 +177,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_antenas.setText("Antenas");
         jMenu1.add(mi_antenas);
 
-        mi_productos.setText("Productos");
-        jMenu1.add(mi_productos);
+        mi_lineas.setText("Lineas");
+        jMenu1.add(mi_lineas);
 
         jMenuBar1.add(jMenu1);
 
@@ -228,6 +228,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mi_antenas;
     private javax.swing.JMenuItem mi_cliente;
-    private javax.swing.JMenuItem mi_productos;
+    private javax.swing.JMenuItem mi_lineas;
     // End of variables declaration//GEN-END:variables
 }
