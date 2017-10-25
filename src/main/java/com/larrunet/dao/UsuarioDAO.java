@@ -22,7 +22,7 @@ public class UsuarioDAO {
     public Personal login(String username, String password){
         Personal personal = null;
         EntityManager manager = EMF.getInstance().createEntityManager();
-        String jpql = "FROM Usuario u where u.usernameUsuario=?1 and u.passwordUsuario=?2";
+        String jpql = "FROM Usuario u where u.usernameUsuario=?1 and u.passwordUsuario=?2 and u.estadoUsuario='HABILITADO'";
         Query query = manager.createQuery(jpql);
         query.setParameter(1, username);
         query.setParameter(2, password);
