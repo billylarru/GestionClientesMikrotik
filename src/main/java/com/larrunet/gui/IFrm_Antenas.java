@@ -33,6 +33,8 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     private boolean editar = false;
     Antena antena;
 
+    private boolean campos_validados;
+
     public IFrm_Antenas() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
@@ -89,7 +91,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         txtDescripcion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
+        cboEstado = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAntenas = new javax.swing.JTable();
@@ -105,6 +107,8 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         jLabel2.setText("Descripcion:");
 
         jLabel3.setText("Estado:");
+
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVA", "INACTIVA", "EN MANTENIMIENTO", "MALOGRADA" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +127,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtIdAntena, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtEstado))
+                    .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -140,8 +144,8 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         btnRegistrar.setText("Registrar");
@@ -205,7 +209,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                     .addComponent(btnRegistrar)
                     .addComponent(btnCancelar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -224,21 +228,40 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         btnCancelar.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    void limpiar(){
+    void limpiar() {
         antena = null;
         txtIdAntena.setText("");
         txtDescripcion.setText("");
-        txtEstado.setText("");
+        cboEstado.setSelectedIndex(0);
     }
-    
-    
-    
-    void registrarAntena() {
-        if (editar) {
-            antena.setDescripAntena(txtDescripcion.getText());
-            antena.setEstadoAntena(txtEstado.getText());
 
-            daoAntenas.modificarAntena(antena);
+    private void validarCampos() {
+        if (txtDescripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese una descripcion", "FALTA INGRESAR DESCRIPCION", JOptionPane.WARNING_MESSAGE);
+            txtDescripcion.requestFocus();
+            campos_validados = false;
+            return;
+        }
+
+        if (cboEstado.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un estado", "FALTA SELECCIONAR ESTADO", JOptionPane.WARNING_MESSAGE);
+            cboEstado.requestFocus();
+            campos_validados = false;
+            return;
+        }
+
+        campos_validados = true;
+    }
+
+    void registrarAntena() {
+        validarCampos();
+
+        if (campos_validados) {
+            if (editar) {
+                antena.setDescripAntena(txtDescripcion.getText());
+                antena.setEstadoAntena(cboEstado.getSelectedItem().toString());
+
+                daoAntenas.modificarAntena(antena);
                 listarAntenas();
                 JOptionPane.showMessageDialog(this, "¡Actualizado!", "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
@@ -246,17 +269,18 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
                 btnRegistrar.setText("Registrar");
                 editar = false;
                 btnCancelar.setVisible(false);
-        } else {
-            
-            antena = new Antena();
-            antena.setDescripAntena(txtDescripcion.getText());
-            antena.setEstadoAntena(txtEstado.getText());
-            if (daoAntenas.registrarAntena(antena)) {
-                JOptionPane.showMessageDialog(this, "¡Antena registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
-                listarAntenas();
-                limpiar();
             } else {
-                JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+
+                antena = new Antena();
+                antena.setDescripAntena(txtDescripcion.getText());
+                antena.setEstadoAntena(cboEstado.getSelectedItem().toString());
+                if (daoAntenas.registrarAntena(antena)) {
+                    JOptionPane.showMessageDialog(this, "¡Antena registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                    listarAntenas();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
 
@@ -268,7 +292,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
 
         txtIdAntena.setText(antena.getCodAntena());
         txtDescripcion.setText(antena.getDescripAntena());
-        txtEstado.setText(antena.getEstadoAntena());
+        cboEstado.setSelectedItem(antena.getEstadoAntena());
 
         editar = true;
         btnCancelar.setVisible(true);
@@ -279,22 +303,21 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
         int selectedRow = tblAntenas.getSelectedRow();
         Antena antena = listaAntenas.get(selectedRow);
 
-        String msg = "¿Está seguro de eliminar la antena " + antena.getDescripAntena()+ " ?";
+        String msg = "¿Está seguro de eliminar la antena " + antena.getDescripAntena() + " ?";
 
         int respuesta = JOptionPane.showConfirmDialog(this, msg, "CONFIRMAR ELIMINACION", JOptionPane.YES_NO_OPTION);
-        
-        if(respuesta == JOptionPane.YES_OPTION){
-            
-            if(daoAntenas.eliminarAntena(antena)){
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+
+            if (daoAntenas.eliminarAntena(antena)) {
                 JOptionPane.showMessageDialog(this, "¡Antena eliminada exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
                 listarAntenas();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "¡Hubo un error al eliminar!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-           
+
         }
-        
-        
+
     }
 
     private class ActionTable implements ActionListener {
@@ -317,6 +340,7 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cboEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -324,7 +348,6 @@ public class IFrm_Antenas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAntenas;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtIdAntena;
     // End of variables declaration//GEN-END:variables
 }

@@ -35,13 +35,15 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
     private boolean editar = false;
     Linea linea;
 
+    private boolean campos_validados;
+
     public IFrm_Lineas() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
         daolineas = new LineaDAO();
         btnCancelar.setVisible(false);
         makePopUp();
-        listarAntenas();
+        listarLineas();
 
     }
 
@@ -63,7 +65,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
 
     }
 
-    void listarAntenas() {
+    void listarLineas() {
         DefaultTableModel model = (DefaultTableModel) tblLineas.getModel();
         model.setRowCount(0);
 
@@ -91,7 +93,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
         txtDescripcion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
+        cboEstado = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLineas = new javax.swing.JTable();
@@ -108,6 +110,8 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
         jLabel2.setText("Descripcion:");
 
         jLabel3.setText("Estado:");
+
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "ACTIVA", "INACTIVA", "EN MANTENIMIENTO" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,7 +130,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtCodLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtEstado))
+                    .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -143,8 +147,8 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         btnRegistrar.setText("Registrar");
@@ -208,7 +212,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
                     .addComponent(btnRegistrar)
                     .addComponent(btnCancelar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -216,7 +220,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        registrarAntena();
+        registrarLinea();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -227,39 +231,59 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
         btnCancelar.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    void limpiar(){
+    void limpiar() {
         linea = null;
         txtCodLinea.setText("");
         txtDescripcion.setText("");
-        txtEstado.setText("");
+        cboEstado.setSelectedIndex(0);
     }
-    
-    
-    
-    void registrarAntena() {
-        if (editar) {
-            linea.setDescripLinea(txtDescripcion.getText());
-            linea.setEstadoLinea(txtEstado.getText());
 
-            daolineas.modificarLinea(linea);
-                listarAntenas();
+    private void validarCampos() {
+        if (txtDescripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese una descripcion", "FALTA INGRESAR DESCRIPCION", JOptionPane.WARNING_MESSAGE);
+            txtDescripcion.requestFocus();
+            campos_validados = false;
+            return;
+        }
+        
+        if (cboEstado.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un estado", "FALTA SELECCIONAR ESTADO", JOptionPane.WARNING_MESSAGE);
+            cboEstado.requestFocus();
+            campos_validados = false;
+            return;
+        }
+
+        campos_validados = true;
+    }
+
+    void registrarLinea() {
+        validarCampos();
+
+        if (campos_validados) {
+            if (editar) {
+                linea.setDescripLinea(txtDescripcion.getText());
+                linea.setEstadoLinea(cboEstado.getSelectedItem().toString());
+
+                daolineas.modificarLinea(linea);
+                listarLineas();
                 JOptionPane.showMessageDialog(this, "¡Actualizado!", "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
 
                 btnRegistrar.setText("Registrar");
                 editar = false;
                 btnCancelar.setVisible(false);
-        } else {
-            
-            linea = new Linea();
-            linea.setDescripLinea(txtDescripcion.getText());
-            linea.setEstadoLinea(txtEstado.getText());
-            if (daolineas.registrarLinea(linea)) {
-                JOptionPane.showMessageDialog(this, "¡Linea registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
-                listarAntenas();
-                limpiar();
             } else {
-                JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+
+                linea = new Linea();
+                linea.setDescripLinea(txtDescripcion.getText());
+                linea.setEstadoLinea(cboEstado.getSelectedItem().toString());
+                if (daolineas.registrarLinea(linea)) {
+                    JOptionPane.showMessageDialog(this, "¡Linea registrada exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                    listarLineas();
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
 
@@ -271,7 +295,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
 
         txtCodLinea.setText(linea.getCodLinea());
         txtDescripcion.setText(linea.getDescripLinea());
-        txtEstado.setText(linea.getEstadoLinea());
+        cboEstado.setSelectedItem(linea.getEstadoLinea());
 
         editar = true;
         btnCancelar.setVisible(true);
@@ -282,22 +306,21 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
         int selectedRow = tblLineas.getSelectedRow();
         Linea linea = listaLineas.get(selectedRow);
 
-        String msg = "¿Está seguro de eliminar la linea " + linea.getDescripLinea()+ " ?";
+        String msg = "¿Está seguro de eliminar la linea " + linea.getDescripLinea() + " ?";
 
         int respuesta = JOptionPane.showConfirmDialog(this, msg, "CONFIRMAR ELIMINACION", JOptionPane.YES_NO_OPTION);
-        
-        if(respuesta == JOptionPane.YES_OPTION){
-            
-            if(daolineas.eliminarLinea(linea)){
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+
+            if (daolineas.eliminarLinea(linea)) {
                 JOptionPane.showMessageDialog(this, "¡Linea eliminada exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
-                listarAntenas();
-            }else{
+                listarLineas();
+            } else {
                 JOptionPane.showMessageDialog(this, "¡Hubo un error al eliminar!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-           
+
         }
-        
-        
+
     }
 
     private class ActionTable implements ActionListener {
@@ -320,6 +343,7 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cboEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -328,6 +352,5 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblLineas;
     private javax.swing.JTextField txtCodLinea;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtEstado;
     // End of variables declaration//GEN-END:variables
 }
