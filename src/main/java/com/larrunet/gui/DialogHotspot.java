@@ -199,7 +199,7 @@ public class DialogHotspot extends javax.swing.JDialog {
                 hotspot.setIP(txtIP.getText());
                 int indiceLinea = cboLinea.getSelectedIndex();
                 hotspot.setLinea(listaLineas.get(indiceLinea-1));
-                hotspot.setEstadoHostpot("ACTIVO");
+                hotspot.setEstadoHostpot("ACTIVADO");
                 if (!existeHotspot(hotspot)) {
                     listaHotspot.add(hotspot);
                     iframe.mostrarHotspotsAgregados();
