@@ -128,6 +128,7 @@ public class Servicio implements Serializable{
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+        cliente.setServicio(this);
     }
 
     public Antena getAntena() {
