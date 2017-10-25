@@ -20,7 +20,7 @@ public class ServicioDAO {
     public List<Servicio> listar(){
         List<Servicio> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
-        String jpql = "From Servicio";
+        String jpql = "From Servicio s where s.estadoServicio!='ELIMINADO'";
         
         list = (List<Servicio>) manager.createQuery(jpql).getResultList();
         
