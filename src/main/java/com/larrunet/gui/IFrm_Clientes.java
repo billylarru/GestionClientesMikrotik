@@ -567,7 +567,8 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 servicio.setObservacion(txtObservacion.getText());
                 int indiceAntena = cboAntenaEmisora.getSelectedIndex();
                 servicio.setAntena(listaAntenas.get(indiceAntena - 1));
-
+                servicio.setHotspots(servicio.getHotspots());
+                
                 if (rbtHabilitado.isSelected()) {
                     servicio.setEstadoServicio("HABILITADO");
                 } else if (rbtCortado.isSelected()) {
