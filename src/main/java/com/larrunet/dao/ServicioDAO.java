@@ -101,8 +101,9 @@ public class ServicioDAO {
         List<Servicio> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
         
-        String subquery = "Select c.codCliente from Cliente c where c.nombresCliente like '%"+texto+"%'";
-        String jpql = "From Servicio s where s.estadoServicio!='ELIMINADO' and s.cliente.codCliente in ("+subquery+")";
+        String exp_nombresCompletos = "CONCAT(c.nombresCliente, ' ', c.apePaternoCliente, ' ', c.apeMaternoCliente)";
+        String subquery = "Select c.codCliente from Cliente c where "+exp_nombresCompletos+" like '%"+texto+"%'";
+        String jpql = "From Servicio s where s.estadoServicio!='ELIMINADO' and (s.cliente.codCliente in ("+subquery+") or s.cliente.aliasCliente like'%"+texto+"%')";
         
         list = (List<Servicio>) manager.createQuery(jpql).getResultList();
         

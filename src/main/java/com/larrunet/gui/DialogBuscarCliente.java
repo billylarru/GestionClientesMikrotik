@@ -148,7 +148,7 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
     
     
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        
+        dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void txtNombresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyReleased
