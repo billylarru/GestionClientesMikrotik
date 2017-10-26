@@ -67,9 +67,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_cliente.addActionListener(al);
         mi_antenas.addActionListener(al);
         mi_lineas.addActionListener(al);
+        mi_registro_pago.addActionListener(al);
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
         mi_lineas.setActionCommand("Lineas");
+        mi_registro_pago.setActionCommand("Registro_pagos");
     }
     
     private void makeIFrame(String key){
@@ -81,6 +83,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             if(key.equalsIgnoreCase("Clientes")) iframe=new IFrm_Clientes();
             else if(key.equalsIgnoreCase("Antenas")) iframe=new IFrm_Antenas();
             else if(key.equalsIgnoreCase("Lineas")) iframe=new IFrm_Lineas();
+            else if(key.equalsIgnoreCase("Registro_pagos")) iframe = new IFrm_RegistrarPago();
             
 
             HashList.getInstance().getList().put(key, iframe);
@@ -117,8 +120,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_antenas = new javax.swing.JMenuItem();
         mi_lineas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mi_servicios_por_vencer = new javax.swing.JMenuItem();
+        mi_registro_pago = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Pagos L@rrunet");
@@ -186,11 +189,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Pagos");
 
-        jMenuItem1.setText("Por vencer");
-        jMenu2.add(jMenuItem1);
+        mi_servicios_por_vencer.setText("Por vencer");
+        jMenu2.add(mi_servicios_por_vencer);
 
-        jMenuItem2.setText("registrar nuevo pago");
-        jMenu2.add(jMenuItem2);
+        mi_registro_pago.setText("registrar nuevo pago");
+        jMenu2.add(mi_registro_pago);
 
         jMenuBar1.add(jMenu2);
 
@@ -231,8 +234,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFecha;
@@ -240,5 +241,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_antenas;
     private javax.swing.JMenuItem mi_cliente;
     private javax.swing.JMenuItem mi_lineas;
+    private javax.swing.JMenuItem mi_registro_pago;
+    private javax.swing.JMenuItem mi_servicios_por_vencer;
     // End of variables declaration//GEN-END:variables
 }

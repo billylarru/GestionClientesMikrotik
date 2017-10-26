@@ -5,6 +5,8 @@
  */
 package com.larrunet.gui;
 
+import com.larrunet.util.IFrameListener;
+
 /**
  *
  * @author kael
@@ -16,6 +18,7 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
      */
     public IFrm_RegistrarPago() {
         initComponents();
+        this.addInternalFrameListener(new IFrameListener());
     }
 
     /**
@@ -46,6 +49,8 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
         txtMontoRecibido = new javax.swing.JTextField();
         btnRegistrarPago = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Registro de pagos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
@@ -53,6 +58,11 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
         jLabel4.setText("Nombres:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Pago Mensual:");
 
@@ -120,15 +130,12 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel2)
                                     .addGap(15, 15, 15)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(dtpFechaVenc, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                             .addComponent(dtpInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -194,6 +201,12 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        DialogBuscarCliente dialog = new DialogBuscarCliente(null, true);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -96,4 +96,22 @@ public class ServicioDAO {
         manager.close();
         return list;
     }
+    
+    public List<Servicio> buscarPorNombre(String texto){
+        List<Servicio> list;
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        
+        String subquery = "Select c.codCliente from Cliente c where c.nombresCliente like '%"+texto+"%'";
+        String jpql = "From Servicio s where s.estadoServicio!='ELIMINADO' and s.cliente.codCliente in ("+subquery+")";
+        
+        list = (List<Servicio>) manager.createQuery(jpql).getResultList();
+        
+        for(Servicio servicio : list){
+            servicio.getAntena().getCodAntena();
+            servicio.getHotspots().forEach(h->h.getLinea().getCodLinea());
+        }
+
+        manager.close();
+        return list;
+    }
 }
