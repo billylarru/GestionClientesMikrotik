@@ -5,6 +5,7 @@
  */
 package com.larrunet.gui;
 
+import com.larrunet.bean.Servicio;
 import com.larrunet.util.IFrameListener;
 
 /**
@@ -12,7 +13,10 @@ import com.larrunet.util.IFrameListener;
  * @author kael
  */
 public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
-
+    
+    
+    
+    Servicio servicio;
     /**
      * Creates new form IFrm_RegistrarPago
      */
@@ -57,6 +61,8 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Nombres:");
 
+        txtNombres.setEditable(false);
+
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +72,11 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Pago Mensual:");
 
+        txtPagoMensual.setEditable(false);
+
         jLabel7.setText("Estado:");
+
+        txtEstado.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -203,11 +213,19 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        DialogBuscarCliente dialog = new DialogBuscarCliente(null, true);
+        DialogBuscarCliente dialog = new DialogBuscarCliente(null, true, this);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    
+    public void mostrarServicio(Servicio servicio){
+        this.servicio = servicio;
+        txtNombres.setText(servicio.getCliente().getNombresCompletos());
+        txtPagoMensual.setText(Double.toString(servicio.getPagoMensual()));
+        txtEstado.setText(servicio.getEstadoServicio());
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

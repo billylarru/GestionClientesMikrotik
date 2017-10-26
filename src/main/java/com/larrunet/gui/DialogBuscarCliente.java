@@ -19,12 +19,15 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
 
     ServicioDAO daoservicios;
     List<Servicio> listaServicios;
+    
+    private IFrm_RegistrarPago iframe;
     /**
      * Creates new form DialogBuscarCliente
      */
-    public DialogBuscarCliente(java.awt.Frame parent, boolean modal) {
+    public DialogBuscarCliente(java.awt.Frame parent, boolean modal, IFrm_RegistrarPago iframe) {
         super(parent, modal);
         initComponents();
+        this.iframe = iframe;
         initObjects();
         listarServicios();
     }
@@ -83,6 +86,11 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
             }
         });
         tblClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClientes);
 
         btnCerrar.setText("Cerrar");
@@ -157,47 +165,19 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
         mostrarServicios();
     }//GEN-LAST:event_txtNombresKeyReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        if(evt.getClickCount()==2){
+            int selectedRow = tblClientes.getSelectedRow();
+            
+            if(selectedRow>=0){
+                Servicio servicio = listaServicios.get(selectedRow);
+                iframe.mostrarServicio(servicio);
+                dispose();
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
+            
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogBuscarCliente dialog = new DialogBuscarCliente(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_tblClientesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
