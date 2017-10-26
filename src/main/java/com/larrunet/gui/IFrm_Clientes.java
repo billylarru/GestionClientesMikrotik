@@ -10,7 +10,6 @@ import com.larrunet.bean.Cliente;
 import com.larrunet.bean.Hotspot;
 import com.larrunet.bean.Servicio;
 import com.larrunet.dao.AntenaDAO;
-import com.larrunet.dao.ClienteDAO;
 import com.larrunet.dao.ServicioDAO;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.TableMouseListener;
@@ -328,14 +327,14 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "IP", "linea"
+                "IP", "linea", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -653,10 +652,10 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
             for (Hotspot hotspot : hotspots) {
 
-                if ( !hotspot.getEstadoHostpot().equals("ELIMINADO") ) {
-                    Object[] row = {hotspot.getIP(), hotspot.getLinea().getDescripLinea()};
+                //if ( !hotspot.getEstadoHostpot().equals("ELIMINADO") ) {
+                    Object[] row = {hotspot.getIP(), hotspot.getLinea().getDescripLinea(), hotspot.getEstadoHostpot()};
                     model.addRow(row);
-                }
+                //}
             }
         }
 
@@ -670,7 +669,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private void editarHotspot() {
         int selectedRow = tblHotspot.getSelectedRow();
         Hotspot hotspot = hotspots.get(selectedRow);
-
+        
         DialogHotspot dialog = new DialogHotspot(null, true, this, hotspot);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
