@@ -186,6 +186,8 @@ public class Cliente implements Serializable{
     }
 
     
-
+    public String getNombresCompletos(){
+        return nombresCliente+" "+apePaternoCliente+" "+apeMaternoCliente;
+    }
      
 }
