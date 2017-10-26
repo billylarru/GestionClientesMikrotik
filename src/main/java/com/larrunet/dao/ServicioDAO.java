@@ -8,6 +8,7 @@ package com.larrunet.dao;
 import com.larrunet.bean.Hotspot;
 import com.larrunet.bean.Servicio;
 import com.larrunet.util.EMF;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -68,5 +69,31 @@ public class ServicioDAO {
         
         manager.getTransaction().commit();
         manager.close();
+    }
+    
+    public Servicio buscarServicioPorCod(String codServicio){
+        Servicio servicio = null;
+        EntityManager manager = EMF.getInstance().createEntityManager();
+
+        servicio = manager.find(Servicio.class, codServicio);
+        
+        servicio.getAntena().getCodAntena();
+        servicio.getHotspots().forEach(h->h.getLinea().getCodLinea());
+
+        manager.close();
+        return servicio;
+    }
+    
+    public List<Hotspot> getHotspotsByCodServicio(String codServicio){
+        List<Hotspot>  list = new ArrayList<>();
+        EntityManager manager = EMF.getInstance().createEntityManager();
+
+        Servicio servicio = manager.find(Servicio.class, codServicio);
+        
+        list = servicio.getHotspots();
+        list.forEach(h->h.getLinea().getCodLinea());
+
+        manager.close();
+        return list;
     }
 }
