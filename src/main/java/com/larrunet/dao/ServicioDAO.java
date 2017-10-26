@@ -62,7 +62,7 @@ public class ServicioDAO {
         
         servicio.getCliente().setEstadoCliente("ELIMINADO");
         servicio.getHotspots().forEach(hotspot->hotspot.setEstadoHostpot("ELIMINADO"));
-        
+        servicio.setEstadoServicio("ELIMINADO");
         
         manager.merge(servicio);
         
