@@ -78,7 +78,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         Cliente cliente = null;
         for (Servicio servicio : listaClientes) {
             cliente = servicio.getCliente();
-            String nombres = cliente.getNombresCliente()+ " " + cliente.getApePaternoCliente()+ " " + cliente.getApeMaternoCliente();
+            String nombres = cliente.getNombresCliente() + " " + cliente.getApePaternoCliente() + " " + cliente.getApeMaternoCliente();
             Object[] row = {cliente.getCodCliente(), nombres, servicio.getPagoMensual(), servicio.getEstadoServicio()};
             model.addRow(row);
         }
@@ -485,13 +485,24 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cancelar() {
         btnRegistrar.setText("Registrar");
         editar = false;
         btnCancelar.setVisible(false);
+        limpiarModificacionesHotspot();
         limpiarCampos();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }
+
+    private void limpiarModificacionesHotspot() {
+        hotspots = daoservicios.getHotspotsByCodServicio(servicio.getCodServicio());
+        servicio.setHotspots(hotspots);
+    }
 
     private void agregarHotspot() {
+        hotspots = hotspots == null ? new ArrayList<>() : hotspots;
         DialogHotspot dialog = new DialogHotspot(null, true, this, hotspots);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
@@ -562,26 +573,32 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 cliente.setApeMaternoCliente(txtApellidoMaterno.getText());
                 cliente.setDireccionCliente(txtDireccion.getText());
                 cliente.setAliasCliente(txtAlias.getText());
+                
                 servicio.setPagoMensual(Double.parseDouble(txtPagoMensual.getText()));
                 servicio.setObservacion(txtObservacion.getText());
                 int indiceAntena = cboAntenaEmisora.getSelectedIndex();
                 servicio.setAntena(listaAntenas.get(indiceAntena - 1));
                 servicio.setHotspots(servicio.getHotspots());
-                
+
                 if (rbtHabilitado.isSelected()) {
                     servicio.setEstadoServicio("HABILITADO");
+                    cliente.setEstadoCliente("ACTIVO");
                 } else if (rbtCortado.isSelected()) {
                     servicio.setEstadoServicio("CORTADO");
+                    cliente.setEstadoCliente("INACTIVO");
                 } else if (rbtEnPruebas.isSelected()) {
                     servicio.setEstadoServicio("EN PRUEBAS");
+                    cliente.setEstadoCliente("ACTIVO");
                 }
 
                 daoservicios.modificarServicio(servicio);
 
-                    listarClientes();
-                    JOptionPane.showMessageDialog(this, "Cliente editado!", "Editar", JOptionPane.INFORMATION_MESSAGE);
-                    limpiarCampos();
-
+                listarClientes();
+                JOptionPane.showMessageDialog(this, "Cliente editado!", "Editar", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCampos();
+                editar = false;
+                btnRegistrar.setText("Registrar");
+                btnCancelar.setVisible(false);
 
             } else {
                 Servicio servicio = new Servicio();
@@ -599,10 +616,13 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
                 if (rbtHabilitado.isSelected()) {
                     servicio.setEstadoServicio("HABILITADO");
+                    cliente.setEstadoCliente("ACTIVO");
                 } else if (rbtCortado.isSelected()) {
                     servicio.setEstadoServicio("CORTADO");
+                    cliente.setEstadoCliente("INACTIVO");
                 } else if (rbtEnPruebas.isSelected()) {
                     servicio.setEstadoServicio("EN PRUEBAS");
+                    cliente.setEstadoCliente("ACTIVO");
                 }
 
                 int indiceAntena = cboAntenaEmisora.getSelectedIndex();
@@ -611,7 +631,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
                 servicio.setCliente(cliente);
                 servicio.setHotspots(hotspots);
-                           
+
                 if (daoservicios.registrarServicio(servicio)) {
                     JOptionPane.showMessageDialog(this, "Cliente registrado!", "Registro", JOptionPane.INFORMATION_MESSAGE);
                     limpiarCampos();
@@ -653,8 +673,8 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
             for (Hotspot hotspot : hotspots) {
 
                 //if ( !hotspot.getEstadoHostpot().equals("ELIMINADO") ) {
-                    Object[] row = {hotspot.getIP(), hotspot.getLinea().getDescripLinea(), hotspot.getEstadoHostpot()};
-                    model.addRow(row);
+                Object[] row = {hotspot.getIP(), hotspot.getLinea().getDescripLinea(), hotspot.getEstadoHostpot()};
+                model.addRow(row);
                 //}
             }
         }
@@ -669,7 +689,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private void editarHotspot() {
         int selectedRow = tblHotspot.getSelectedRow();
         Hotspot hotspot = hotspots.get(selectedRow);
-        
+
         DialogHotspot dialog = new DialogHotspot(null, true, this, hotspot);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
@@ -698,9 +718,11 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     }
 
     private void editarCliente() {
-        
-        if(editar){
-            limpiarCampos();
+
+        if (editar) {
+            // limpiarModificacionesHotspot();
+            //limpiarCampos();
+            cancelar();
         }
         int selectedRow = tblClientes.getSelectedRow();
         servicio = listaClientes.get(selectedRow);
@@ -745,7 +767,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaClientes.get(selectedRow);
         Cliente cliente = servicio.getCliente();
-        String nombres_completos = cliente.getNombresCliente()+ " " + cliente.getApePaternoCliente()+ " " + cliente.getApeMaternoCliente();
+        String nombres_completos = cliente.getNombresCliente() + " " + cliente.getApePaternoCliente() + " " + cliente.getApeMaternoCliente();
 
         String msg = "¿Está seguro de eliminar el cliente " + nombres_completos + " ?";
 
@@ -753,10 +775,9 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         if (respuesta == JOptionPane.YES_OPTION) {
 
-                daoservicios.eliminarServicio(servicio);
-                JOptionPane.showMessageDialog(this, "¡Cliente eliminado exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
-                listarClientes();
- 
+            daoservicios.eliminarServicio(servicio);
+            JOptionPane.showMessageDialog(this, "¡Cliente eliminado exitosamente!", "Eliminacion", JOptionPane.INFORMATION_MESSAGE);
+            listarClientes();
 
         }
     }
@@ -765,16 +786,21 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JMenuItem menu = (JMenuItem) e.getSource();
 
-            if (menu == menuItemEditHotspot) {
-                editarHotspot();
-            } else if (menu == menuItemDeleteHotspot) {
-                eliminarHotspot();
-            } else if (menu == menuItemEditCliente) {
-                editarCliente();
-            } else if (menu == menuItemDeleteCliente) {
-                eliminarCliente();
+            if (tblClientes.getSelectedRow()>= 0 || tblHotspot.getSelectedRow()>=0) {
+                JMenuItem menu = (JMenuItem) e.getSource();
+
+                if (menu == menuItemEditHotspot) {
+                    editarHotspot();
+                } else if (menu == menuItemDeleteHotspot) {
+                    eliminarHotspot();
+                } else if (menu == menuItemEditCliente) {
+                    editarCliente();
+                } else if (menu == menuItemDeleteCliente) {
+                    eliminarCliente();
+                }
+            }else{
+                JOptionPane.showMessageDialog(IFrm_Clientes.this, "Seleccione una fila", "FALTA SELECCIONAR FILA", JOptionPane.ERROR_MESSAGE);
             }
 
         }
