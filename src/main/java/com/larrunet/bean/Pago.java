@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  *
@@ -28,6 +30,7 @@ import java.time.LocalDate;
 @Table(name = "PAGO")
 public class Pago implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdPago")
     private Integer idPago;
     
@@ -37,7 +40,7 @@ public class Pago implements Serializable {
     @Column(name = "FechaInicio")
     private LocalDate fechaInicio;
     
-    @Column(name = "FechaVencimiento")
+    @Column(name = "FechaVenc")
     private LocalDate fechaVencimiento;
     
     @Column(name = "MontoPago")
@@ -162,8 +165,17 @@ public class Pago implements Serializable {
 
     public void setPagosParcial(List<PagoParcial> pagosParcial) {
         this.pagosParcial = pagosParcial;
+        pagosParcial.forEach(pp->pp.setPago(this));
     }
 
+    public void addPagoParcial(PagoParcial pagoParcial){
+        
+        if(!pagosParcial.contains(pagoParcial)){
+            pagosParcial.add(pagoParcial);
+            pagoParcial.setPago(this);
+        } 
+    }
+    
     @Override
     public String toString() {
         return "Pago{" + "idPago=" + idPago + ", fechaEmision=" + fechaEmision + ", fechaInicio=" + fechaInicio + ", fechaVencimiento=" + fechaVencimiento + ", montoPago=" + montoPago + ", estadoPago=" + estadoPago + '}';
