@@ -71,7 +71,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
         mi_lineas.setActionCommand("Lineas");
-        mi_registro_pago.setActionCommand("Registro_pagos");
+        mi_registro_pago.setActionCommand("RegistrarPago");
     }
     
     private void makeIFrame(String key){
@@ -83,7 +83,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             if(key.equalsIgnoreCase("Clientes")) iframe=new IFrm_Clientes();
             else if(key.equalsIgnoreCase("Antenas")) iframe=new IFrm_Antenas();
             else if(key.equalsIgnoreCase("Lineas")) iframe=new IFrm_Lineas();
-            else if(key.equalsIgnoreCase("Registro_pagos")) iframe = new IFrm_RegistrarPago();
+            else if(key.equalsIgnoreCase("RegistrarPago")) iframe = new IFrm_RegistrarPago();
             
 
             HashList.getInstance().getList().put(key, iframe);

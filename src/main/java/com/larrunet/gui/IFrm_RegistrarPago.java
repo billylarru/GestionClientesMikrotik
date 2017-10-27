@@ -54,7 +54,6 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
         btnRegistrarPago = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
         setTitle("Registro de pagos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
