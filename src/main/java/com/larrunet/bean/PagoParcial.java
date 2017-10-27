@@ -31,7 +31,7 @@ public class PagoParcial implements Serializable {
     private Integer idPagoParcial;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CodPago")
+    @JoinColumn(name = "IdPago")
     private Pago pago;
     
     @Column(name = "Monto")
