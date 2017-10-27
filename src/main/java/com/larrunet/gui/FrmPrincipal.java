@@ -62,6 +62,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
     
 
+    //El setActionCommand debe contener lo que viene despues del IFrm_
     private void set_Action(){
         ActionMI al=new ActionMI();
         mi_cliente.addActionListener(al);
