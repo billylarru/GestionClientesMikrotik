@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 /**
  *
  * @author kael
@@ -24,6 +26,7 @@ import java.time.LocalDateTime;
 public class PagoParcial implements Serializable {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdPagoParcial")
     private Integer idPagoParcial;
     
