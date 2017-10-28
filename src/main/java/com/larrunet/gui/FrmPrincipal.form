@@ -36,9 +36,9 @@
             <Property name="text" type="java.lang.String" value="Pagos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_servicios_por_vencer">
+            <MenuItem class="javax.swing.JMenuItem" name="mi_vencimientos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Por vencer"/>
+                <Property name="text" type="java.lang.String" value="Vencimientos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mi_registro_pago">

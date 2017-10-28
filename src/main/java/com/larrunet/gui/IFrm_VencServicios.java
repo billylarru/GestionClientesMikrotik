@@ -5,17 +5,51 @@
  */
 package com.larrunet.gui;
 
+import com.larrunet.bean.Cliente;
+import com.larrunet.bean.Pago;
+import com.larrunet.bean.Servicio;
+import com.larrunet.dao.ServicioDAO;
+import com.larrunet.util.IFrameListener;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kael
  */
 public class IFrm_VencServicios extends javax.swing.JInternalFrame {
 
+    ServicioDAO daoservicios;
+    List<Servicio> listaServicios;
+    
     /**
      * Creates new form IFrm_Vencimientos
      */
     public IFrm_VencServicios() {
         initComponents();
+        this.addInternalFrameListener(new IFrameListener());
+        initObjects();
+        listarServiciosPorVencer();
+    }
+    
+    private void initObjects(){
+        daoservicios = new ServicioDAO();
+    }
+    
+    
+    
+    public void listarServiciosPorVencer(){
+        listaServicios = daoservicios.listarServiciosPorVencer();
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        model.setRowCount(0);
+
+        Cliente cliente = null;
+        for (Servicio servicio : listaServicios) {
+            cliente = servicio.getCliente();
+            Pago pago = cliente.getPagos().get(0);
+            Object[] row = {cliente.getNombresCompletos(), pago.getFechaInicio(), pago.getFechaVencimiento(), "Hace un dia"};
+            model.addRow(row);
+        }
     }
 
     /**

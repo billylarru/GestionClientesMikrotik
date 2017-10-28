@@ -70,12 +70,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_lineas.addActionListener(al);
         mi_registro_pago.addActionListener(al);
         mi_personal.addActionListener(al);
+        mi_vencimientos.addActionListener(al);
         
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
         mi_lineas.setActionCommand("Lineas");
         mi_registro_pago.setActionCommand("RegistrarPago");
         mi_personal.setActionCommand("Personal");
+        mi_vencimientos.setActionCommand("VencServicios");
     }
     
     private void makeIFrame(String key){
@@ -89,6 +91,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             else if(key.equalsIgnoreCase("Lineas")) iframe=new IFrm_Lineas();
             else if(key.equalsIgnoreCase("RegistrarPago")) iframe = new IFrm_RegistrarPago();
             else if(key.equalsIgnoreCase("Personal")) iframe = new IFrm_Personal();
+            else if(key.equalsIgnoreCase("VencServicios")) iframe = new IFrm_VencServicios();
 
             HashList.getInstance().getList().put(key, iframe);
             
@@ -125,7 +128,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_lineas = new javax.swing.JMenuItem();
         mi_personal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        mi_servicios_por_vencer = new javax.swing.JMenuItem();
+        mi_vencimientos = new javax.swing.JMenuItem();
         mi_registro_pago = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,8 +200,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Pagos");
 
-        mi_servicios_por_vencer.setText("Por vencer");
-        jMenu2.add(mi_servicios_por_vencer);
+        mi_vencimientos.setText("Vencimientos");
+        jMenu2.add(mi_vencimientos);
 
         mi_registro_pago.setText("registrar nuevo pago");
         jMenu2.add(mi_registro_pago);
@@ -251,6 +254,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_lineas;
     private javax.swing.JMenuItem mi_personal;
     private javax.swing.JMenuItem mi_registro_pago;
-    private javax.swing.JMenuItem mi_servicios_por_vencer;
+    private javax.swing.JMenuItem mi_vencimientos;
     // End of variables declaration//GEN-END:variables
 }
