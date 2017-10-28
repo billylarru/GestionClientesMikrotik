@@ -5,8 +5,10 @@
  */
 package com.larrunet.dao;
 
+import com.larrunet.bean.Antena;
 import com.larrunet.bean.Personal;
 import com.larrunet.util.EMF;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -14,6 +16,19 @@ import javax.persistence.EntityManager;
  * @author kael
  */
 public class PersonalDAO {
+    
+    public List<Personal> listar(){
+        List<Personal> list;
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        String jpql = "From Personal p where p.estadoPersonal!='ELIMINADO'";
+        
+        list = (List<Personal>) manager.createQuery(jpql).getResultList();
+        
+        list.forEach(p->p.getUsuario().getCodUsuario());
+        
+        manager.close();
+        return list;
+    }
     
     
     public boolean registrarPersonal(Personal personal){

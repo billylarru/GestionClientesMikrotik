@@ -5,6 +5,7 @@
  */
 package com.larrunet.gui;
 
+import com.larrunet.bean.Antena;
 import com.larrunet.bean.Personal;
 import com.larrunet.bean.TipoUsuario;
 import com.larrunet.bean.Usuario;
@@ -14,6 +15,7 @@ import com.larrunet.util.IFrameListener;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,7 +30,7 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
      */
 
     List<TipoUsuario> listaTipoUsuarios;
-
+    List<Personal> listaPersonal;
     public IFrm_Personal() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
@@ -47,6 +49,18 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         listaTipoUsuarios.forEach(tu -> cboTipoUsuario.addItem(tu.getDescripTipoUsuario()));
     }
 
+    
+    private void listarPersonal(){
+        DefaultTableModel model = (DefaultTableModel) tblPersonal.getModel();
+        model.setRowCount(0);
+
+        listaPersonal = daopersonal.listar();
+/*
+        for (Personal personal : listaPersonal) {
+            Object[] row = {personal.getCodPersonal(), , antena.getEstadoAntena()};
+            model.addRow(row);
+        }*/
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
