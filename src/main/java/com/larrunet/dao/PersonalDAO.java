@@ -24,7 +24,7 @@ public class PersonalDAO {
         
         list = (List<Personal>) manager.createQuery(jpql).getResultList();
         
-        list.forEach(p->p.getUsuario().getCodUsuario());
+        list.forEach(p->p.getUsuario().getTipoUsuario().getIdTipoUsuario());
         
         manager.close();
         return list;
