@@ -36,6 +36,7 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         this.addInternalFrameListener(new IFrameListener());
         initObjects();
         cargarDatos();
+        listarPersonal();
     }
 
     private void initObjects() {
@@ -55,11 +56,17 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         model.setRowCount(0);
 
         listaPersonal = daopersonal.listar();
-/*
+
         for (Personal personal : listaPersonal) {
-            Object[] row = {personal.getCodPersonal(), , antena.getEstadoAntena()};
+            
+            Object[] row = {
+                personal.getCodPersonal(), 
+                personal.getNombresCompletos(), 
+                personal.getUsuario().getUsernameUsuario(), 
+                personal.getUsuario().getTipoUsuario().getDescripTipoUsuario()
+            };
             model.addRow(row);
-        }*/
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -218,15 +225,27 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
 
         tblPersonal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CodPersonal", "Nombres", "Usuario", "Tipo"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblPersonal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
