@@ -69,6 +69,7 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPersonal = new javax.swing.JTable();
 
+        setClosable(true);
         setTitle("Mantenimiento del Personal");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
