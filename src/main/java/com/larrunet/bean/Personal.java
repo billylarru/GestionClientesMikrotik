@@ -153,6 +153,11 @@ public class Personal implements Serializable {
         this.codPersonal = codPersonal;
     }
 
+    public String getNombresCompletos(){
+        return nombrePersonal+" "+apePaternoPersonal+" "+apeMaternoPersonal;
+    }
+    
+    
     @Override
     public String toString() {
         return "Personal{" + "codPersonal=" + codPersonal + ", nombrePersonal=" + nombrePersonal + ", apePaternoPersonal=" + apePaternoPersonal + ", apeMaternoPersonal=" + apeMaternoPersonal + ", fechaRegistroPersonal=" + fechaRegistroPersonal + ", estadoPersonal=" + estadoPersonal + '}';
