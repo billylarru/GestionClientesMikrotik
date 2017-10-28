@@ -122,6 +122,7 @@ public class Personal implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+        usuario.setPersonal(this);
     }
 
     public List<Pago> getPagos() {
