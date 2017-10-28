@@ -8,38 +8,45 @@ package com.larrunet.gui;
 import com.larrunet.bean.Personal;
 import com.larrunet.bean.TipoUsuario;
 import com.larrunet.bean.Usuario;
+import com.larrunet.dao.PersonalDAO;
 import com.larrunet.dao.TipoUsuarioDAO;
 import com.larrunet.util.IFrameListener;
+import java.time.LocalDateTime;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author kael
  */
 public class IFrm_Personal extends javax.swing.JInternalFrame {
+
     private TipoUsuarioDAO daoTiposusuario;
+    private PersonalDAO daopersonal;
     /**
      * Creates new form IFrm_Personal
      */
-    
+
     List<TipoUsuario> listaTipoUsuarios;
+
     public IFrm_Personal() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
         initObjects();
         cargarDatos();
     }
-    
-    
-    private void initObjects(){
+
+    private void initObjects() {
         daoTiposusuario = new TipoUsuarioDAO();
+        daopersonal = new PersonalDAO();
     }
-    
-    private void cargarDatos(){
+
+    private void cargarDatos() {
         listaTipoUsuarios = daoTiposusuario.listar();
-        
-        listaTipoUsuarios.forEach(tu->cboTipoUsuario.addItem(tu.getDescripTipoUsuario()));
+
+        listaTipoUsuarios.forEach(tu -> cboTipoUsuario.addItem(tu.getDescripTipoUsuario()));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,32 +251,42 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       cancelar();
+        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void registrar(){
+    private void registrar() {
         Personal personal = new Personal();
         personal.setNombrePersonal(txtNombres.getText());
         personal.setApePaternoPersonal(txtApePaterno.getText());
         personal.setApeMaternoPersonal(txtApeMaterno.getText());
+        personal.setEstadoPersonal("HABILITADO");
+        personal.setFechaRegistroPersonal(LocalDateTime.now());
         
         Usuario usuario = new Usuario();
         usuario.setUsernameUsuario(txtUsuario.getText());
         usuario.setPasswordUsuario(String.copyValueOf(txtContraseña.getPassword()));
-        
-        TipoUsuario tipoUsuario = null;
+
+        int indiceSeleccionado = cboTipoUsuario.getSelectedIndex();
+        TipoUsuario tipoUsuario = listaTipoUsuarios.get(indiceSeleccionado);
         usuario.setTipoUsuario(tipoUsuario);
-        
+        usuario.setEstadoUsuario("HABILITADO");
+
         personal.setUsuario(usuario);
+
+        if (daopersonal.registrarPersonal(personal)) {
+            JOptionPane.showMessageDialog(this, "¡Personal registrado exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
+            //listarAntenas();
+            //limpiar();
+        } else {
+            JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
-    private void cancelar(){
-        
+
+    private void cancelar() {
+
     }
-    
-    
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
