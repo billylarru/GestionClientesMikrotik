@@ -5,7 +5,6 @@
  */
 package com.larrunet.gui;
 
-import com.larrunet.bean.Antena;
 import com.larrunet.bean.Personal;
 import com.larrunet.bean.TipoUsuario;
 import com.larrunet.bean.Usuario;
@@ -15,6 +14,7 @@ import com.larrunet.util.IFrameListener;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +31,9 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
 
     List<TipoUsuario> listaTipoUsuarios;
     List<Personal> listaPersonal;
+
+    private boolean campos_validados;
+
     public IFrm_Personal() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
@@ -48,26 +51,28 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         listaTipoUsuarios = daoTiposusuario.listar();
 
         listaTipoUsuarios.forEach(tu -> cboTipoUsuario.addItem(tu.getDescripTipoUsuario()));
+        
+        btnCancelar.setVisible(false);
     }
 
-    
-    private void listarPersonal(){
+    private void listarPersonal() {
         DefaultTableModel model = (DefaultTableModel) tblPersonal.getModel();
         model.setRowCount(0);
 
         listaPersonal = daopersonal.listar();
 
         for (Personal personal : listaPersonal) {
-            
+
             Object[] row = {
-                personal.getCodPersonal(), 
-                personal.getNombresCompletos(), 
-                personal.getUsuario().getUsernameUsuario(), 
+                personal.getCodPersonal(),
+                personal.getNombresCompletos(),
+                personal.getUsuario().getUsernameUsuario(),
                 personal.getUsuario().getTipoUsuario().getDescripTipoUsuario()
             };
             model.addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,6 +153,8 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         jLabel4.setText("Nombre de usuario:");
 
         jLabel5.setText("Contraseña:");
+
+        cboTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE" }));
 
         jLabel6.setText("Tipo de usuario:");
 
@@ -287,38 +294,102 @@ public class IFrm_Personal extends javax.swing.JInternalFrame {
         cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void registrar() {
-        Personal personal = new Personal();
-        personal.setNombrePersonal(txtNombres.getText());
-        personal.setApePaternoPersonal(txtApePaterno.getText());
-        personal.setApeMaternoPersonal(txtApeMaterno.getText());
-        personal.setEstadoPersonal("HABILITADO");
-        personal.setFechaRegistroPersonal(LocalDateTime.now());
-        
-        Usuario usuario = new Usuario();
-        usuario.setUsernameUsuario(txtUsuario.getText());
-        usuario.setPasswordUsuario(String.copyValueOf(txtContraseña.getPassword()));
-
-        int indiceSeleccionado = cboTipoUsuario.getSelectedIndex();
-        TipoUsuario tipoUsuario = listaTipoUsuarios.get(indiceSeleccionado);
-        usuario.setTipoUsuario(tipoUsuario);
-        usuario.setEstadoUsuario("HABILITADO");
-
-        personal.setUsuario(usuario);
-
-        if (daopersonal.registrarPersonal(personal)) {
-            JOptionPane.showMessageDialog(this, "¡Personal registrado exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
-            //listarAntenas();
-            //limpiar();
-        } else {
-            JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+    private void validarCampos() {
+        if (txtNombres.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese nombres", "FALTA INGRESAR NOMBRES", JOptionPane.WARNING_MESSAGE);
+            txtNombres.requestFocus();
+            campos_validados = false;
+            return;
         }
+        
+        if (txtApePaterno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese apellido paterno", "FALTA INGRESAR APELLIDO PATERNO", JOptionPane.WARNING_MESSAGE);
+            txtApePaterno.requestFocus();
+            campos_validados = false;
+            return;
+        }
+        
+        if (txtApeMaterno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese apellido materno", "FALTA INGRESAR APELLIDO MATERNO", JOptionPane.WARNING_MESSAGE);
+            txtApeMaterno.requestFocus();
+            campos_validados = false;
+            return;
+        }
+        
+        if (txtUsuario.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese usuario", "FALTA INGRESAR USUARIO", JOptionPane.WARNING_MESSAGE);
+            txtUsuario.requestFocus();
+            campos_validados = false;
+            return;
+        }
+        
+        if (txtContraseña.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese contraseña", "FALTA INGRESAR CONTRASEÑA", JOptionPane.WARNING_MESSAGE);
+            txtContraseña.requestFocus();
+            campos_validados = false;
+            return;
+        }
+
+        if (cboTipoUsuario.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de usuario", "FALTA SELECCIONAR TIPO DE USUARIO", JOptionPane.WARNING_MESSAGE);
+            cboTipoUsuario.requestFocus();
+            campos_validados = false;
+            return;
+        }
+
+        campos_validados = true;
+    }
+
+    private void registrar() {
+        validarCampos();
+
+        if (campos_validados) {
+            Personal personal = new Personal();
+            personal.setNombrePersonal(txtNombres.getText());
+            personal.setApePaternoPersonal(txtApePaterno.getText());
+            personal.setApeMaternoPersonal(txtApeMaterno.getText());
+            personal.setEstadoPersonal("HABILITADO");
+            personal.setFechaRegistroPersonal(LocalDateTime.now());
+
+            Usuario usuario = new Usuario();
+            usuario.setUsernameUsuario(txtUsuario.getText());
+            usuario.setPasswordUsuario(String.copyValueOf(txtContraseña.getPassword()));
+
+            int indiceSeleccionado = cboTipoUsuario.getSelectedIndex();
+            TipoUsuario tipoUsuario = listaTipoUsuarios.get(indiceSeleccionado);
+            usuario.setTipoUsuario(tipoUsuario);
+            usuario.setEstadoUsuario("HABILITADO");
+
+            personal.setUsuario(usuario);
+
+            if (daopersonal.registrarPersonal(personal)) {
+                JOptionPane.showMessageDialog(this, "¡Personal registrado exitosamente!", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                listarPersonal();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "¡Hubo un error al registrar!", "Falla de registro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
     private void cancelar() {
 
     }
 
+    private void limpiar(){
+        clearTXT(txtNombres);
+        clearTXT(txtApePaterno);
+        clearTXT(txtApeMaterno);
+        clearTXT(txtUsuario);
+        clearTXT(txtContraseña);
+        cboTipoUsuario.setSelectedIndex(0);
+    }
+    
+    private void clearTXT(JTextField txt){
+        txt.setText(null);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
