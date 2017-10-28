@@ -69,10 +69,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_antenas.addActionListener(al);
         mi_lineas.addActionListener(al);
         mi_registro_pago.addActionListener(al);
+        mi_personal.addActionListener(al);
+        
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
         mi_lineas.setActionCommand("Lineas");
         mi_registro_pago.setActionCommand("RegistrarPago");
+        mi_personal.setActionCommand("Personal");
     }
     
     private void makeIFrame(String key){
@@ -85,7 +88,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             else if(key.equalsIgnoreCase("Antenas")) iframe=new IFrm_Antenas();
             else if(key.equalsIgnoreCase("Lineas")) iframe=new IFrm_Lineas();
             else if(key.equalsIgnoreCase("RegistrarPago")) iframe = new IFrm_RegistrarPago();
-            
+            else if(key.equalsIgnoreCase("Personal")) iframe = new IFrm_Personal();
 
             HashList.getInstance().getList().put(key, iframe);
             
@@ -120,6 +123,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_cliente = new javax.swing.JMenuItem();
         mi_antenas = new javax.swing.JMenuItem();
         mi_lineas = new javax.swing.JMenuItem();
+        mi_personal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mi_servicios_por_vencer = new javax.swing.JMenuItem();
         mi_registro_pago = new javax.swing.JMenuItem();
@@ -186,6 +190,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_lineas.setText("Lineas");
         jMenu1.add(mi_lineas);
 
+        mi_personal.setText("Personal");
+        jMenu1.add(mi_personal);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Pagos");
@@ -242,6 +249,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_antenas;
     private javax.swing.JMenuItem mi_cliente;
     private javax.swing.JMenuItem mi_lineas;
+    private javax.swing.JMenuItem mi_personal;
     private javax.swing.JMenuItem mi_registro_pago;
     private javax.swing.JMenuItem mi_servicios_por_vencer;
     // End of variables declaration//GEN-END:variables
