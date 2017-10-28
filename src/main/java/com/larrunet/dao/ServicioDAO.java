@@ -115,4 +115,25 @@ public class ServicioDAO {
         manager.close();
         return list;
     }
+    
+    public List<Servicio> listarServiciosPorVencer(){
+        List<Servicio> list;
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        String jpql = "select s From Servicio s "+
+                "JOIN s.cliente c "+
+                "JOIN c.pagos p "+
+                "where "+
+                "p.idPago=(select max(sp.idPago) from Pago sp where sp.cliente.codCliente=c.codCliente) "+
+                "and "+
+                "s.estadoServicio='HABILITADO'";
+        
+        list = (List<Servicio>) manager.createQuery(jpql).getResultList();
+        
+        for(Servicio servicio : list){
+            System.out.println(servicio.getCliente().getPagos());
+            servicio.getCliente().getPagos().forEach(p->p.getIdPago());
+        }
+        manager.close();
+        return list;
+    }
 }
