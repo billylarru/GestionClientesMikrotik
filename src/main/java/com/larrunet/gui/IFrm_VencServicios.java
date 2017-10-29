@@ -37,7 +37,8 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         this.addInternalFrameListener(new IFrameListener());
         initObjects();
         makePopUp();
-        listarServiciosPorVencer();
+        rbtPorVencer.setSelected(true);
+        //listarTodosLosServicios();
     }
     
     
@@ -66,13 +67,22 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     
     
     
+    public void listarTodosLosServicios(){
+        listaServicios = daoservicios.listarTodosLosServicios();
+        renderizarTabla(listaServicios);
+    }
+    
     public void listarServiciosPorVencer(){
         listaServicios = daoservicios.listarServiciosPorVencer();
+        renderizarTabla(listaServicios);
+    }
+    
+    private void renderizarTabla(List<Servicio> list){
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
-
+        
         Cliente cliente = null;
-        for (Servicio servicio : listaServicios) {
+        for (Servicio servicio : list) {
             cliente = servicio.getCliente();
             List<Pago> listaPagos = cliente.getPagos();
             Pago pago = listaPagos.get(listaPagos.size()-1);
@@ -105,11 +115,20 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Criterio"));
 
         buttonGroup1.add(rbtPorVencer);
-        rbtPorVencer.setSelected(true);
         rbtPorVencer.setText("Por vencer");
+        rbtPorVencer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtPorVencerActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbtListarTodos);
         rbtListarTodos.setText("Listar todos");
+        rbtListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtListarTodosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Buscar por Nombre:");
 
@@ -194,6 +213,14 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rbtPorVencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtPorVencerActionPerformed
+        listarServiciosPorVencer();
+    }//GEN-LAST:event_rbtPorVencerActionPerformed
+
+    private void rbtListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtListarTodosActionPerformed
+        listarTodosLosServicios();
+    }//GEN-LAST:event_rbtListarTodosActionPerformed
 
     private void cobrarServicio(){
         
