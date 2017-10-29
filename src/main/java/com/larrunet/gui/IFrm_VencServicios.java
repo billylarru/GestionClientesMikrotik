@@ -140,6 +140,7 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
