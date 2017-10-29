@@ -38,7 +38,7 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         initObjects();
         makePopUp();
         rbtPorVencer.setSelected(true);
-        //listarTodosLosServicios();
+        listarServiciosPorVencer();
     }
     
     
