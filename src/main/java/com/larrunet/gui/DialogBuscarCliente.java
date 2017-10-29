@@ -54,6 +54,7 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Clientes");
+        setResizable(false);
 
         jLabel1.setText("Nombres:");
 
