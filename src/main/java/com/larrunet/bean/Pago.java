@@ -222,6 +222,21 @@ public class Pago implements Serializable {
         return vence;
     }
 
+    public boolean estaPorVencer(){
+        boolean vencido = false;
+        LocalDate fechaActual = LocalDate.now();
+
+        Period periodo = Period.between(fechaActual, fechaVencimiento);
+        int dias = periodo.getDays();
+        int meses = periodo.getMonths();
+        int anios = periodo.getYears();
+        
+        if(anios==0 && meses==0 && dias<=1){
+            vencido = true;
+        }
+        return vencido;
+    }
+    
     @Override
     public String toString() {
         return "Pago{" + "idPago=" + idPago + ", fechaEmision=" + fechaEmision + ", fechaInicio=" + fechaInicio + ", fechaVencimiento=" + fechaVencimiento + ", montoPago=" + montoPago + ", estadoPago=" + estadoPago + '}';
