@@ -10,7 +10,12 @@ import com.larrunet.bean.Pago;
 import com.larrunet.bean.Servicio;
 import com.larrunet.dao.ServicioDAO;
 import com.larrunet.util.IFrameListener;
+import com.larrunet.util.TableMouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +26,9 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
 
     ServicioDAO daoservicios;
     List<Servicio> listaServicios;
+    private JPopupMenu popupMenu;
     
+    private JMenuItem menuItemCobrar, menuItemCortar;
     /**
      * Creates new form IFrm_Vencimientos
      */
@@ -29,9 +36,30 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
         initObjects();
+        makePopUp();
         listarServiciosPorVencer();
     }
     
+    
+     private void makePopUp() {
+        popupMenu = new JPopupMenu();
+        menuItemCobrar = new JMenuItem("Cobrar");
+        menuItemCortar = new JMenuItem("Cortar");
+
+        IFrm_VencServicios.ActionTable at = new IFrm_VencServicios.ActionTable();
+
+        menuItemCobrar.addActionListener(at);
+        menuItemCortar.addActionListener(at);
+
+        tblClientes.setComponentPopupMenu(popupMenu);
+        tblClientes.addMouseListener(new TableMouseListener(tblClientes));
+
+        popupMenu.add(menuItemCobrar);
+        popupMenu.add(menuItemCortar);
+
+    }
+     
+     
     private void initObjects(){
         daoservicios = new ServicioDAO();
     }
@@ -167,6 +195,30 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cobrarServicio(){
+        
+    }
+    
+    private void cortarServicio(){
+        
+    }
+    
+    
+    private class ActionTable implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JMenuItem menu = (JMenuItem) e.getSource();
+
+            if (menu == menuItemCobrar) {
+                cobrarServicio();
+            } else if (menu == menuItemCortar) {
+                cortarServicio();
+            }
+
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
