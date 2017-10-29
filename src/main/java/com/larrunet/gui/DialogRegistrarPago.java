@@ -30,11 +30,26 @@ public class DialogRegistrarPago extends javax.swing.JDialog {
     public DialogRegistrarPago(java.awt.Frame parent, boolean modal, Servicio servicio) {
         super(parent, modal);
         initComponents();
-        pnlRegistroPagos = new PnlRegistroPagos();
+        pnlRegistroPagos = new PnlRegistroPagos(this);
         pnlRegistroPagos.mostrarServicio(servicio);
         this.setContentPane(pnlRegistroPagos);
     }
     
+    
+    public DialogRegistrarPago(JDialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        pnlRegistroPagos = new PnlRegistroPagos();
+        this.setContentPane(pnlRegistroPagos);
+    }
+
+    public DialogRegistrarPago(JDialog parent, boolean modal, Servicio servicio) {
+        super(parent, modal);
+        initComponents();
+        pnlRegistroPagos = new PnlRegistroPagos();
+        pnlRegistroPagos.mostrarServicio(servicio);
+        this.setContentPane(pnlRegistroPagos);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

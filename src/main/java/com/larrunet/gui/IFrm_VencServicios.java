@@ -12,10 +12,12 @@ import com.larrunet.dao.ServicioDAO;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.RowsRenderer;
 import com.larrunet.util.TableMouseListener;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
@@ -232,7 +234,8 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaServicios.get(selectedRow);
         
-        DialogRegistrarPago dialog = new DialogRegistrarPago(null, true, servicio);
+        Frame f = JOptionPane.getFrameForComponent(this);
+        DialogRegistrarPago dialog = new DialogRegistrarPago(f, true, servicio);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }

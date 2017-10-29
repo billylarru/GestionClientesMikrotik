@@ -10,6 +10,7 @@ import com.larrunet.bean.Servicio;
 import com.larrunet.dao.ServicioDAO;
 import com.larrunet.gui.panel.PnlRegistroPagos;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +27,14 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
      * Creates new form DialogBuscarCliente
      */
     public DialogBuscarCliente(java.awt.Frame parent, boolean modal, PnlRegistroPagos panelRegistroPagos) {
+        super(parent, modal);
+        initComponents();
+        this.panelRegistroPagos = panelRegistroPagos;
+        initObjects();
+        listarServicios();
+    }
+    
+    public DialogBuscarCliente(JDialog parent, boolean modal, PnlRegistroPagos panelRegistroPagos) {
         super(parent, modal);
         initComponents();
         this.panelRegistroPagos = panelRegistroPagos;

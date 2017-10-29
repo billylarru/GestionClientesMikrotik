@@ -34,7 +34,7 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
         
-        pnlRegistroPagos = new PnlRegistroPagos();
+        pnlRegistroPagos = new PnlRegistroPagos(this);
         this.setContentPane(pnlRegistroPagos);
         
     }

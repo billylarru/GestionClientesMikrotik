@@ -10,6 +10,7 @@ import com.larrunet.bean.PagoParcial;
 import com.larrunet.bean.Servicio;
 import com.larrunet.dao.PagoDAO;
 import com.larrunet.gui.DialogBuscarCliente;
+import com.larrunet.gui.IFrm_RegistrarPago;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.Singleton;
 import java.awt.Frame;
@@ -19,6 +20,7 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,11 +30,27 @@ import javax.swing.JOptionPane;
 public class PnlRegistroPagos extends javax.swing.JPanel {
     Servicio servicio;
     PagoDAO daopagos;
+    IFrm_RegistrarPago frame;
     
+    JDialog dialogParent;
     /**
      * Creates new form PnlRegistroPagos
      */
     public PnlRegistroPagos() {
+        initComponents();
+        initObjects();
+        cargarDatos();
+    }
+    
+    public PnlRegistroPagos(IFrm_RegistrarPago frame) {
+        this.frame = frame;
+        initComponents();
+        initObjects();
+        cargarDatos();
+    }
+    
+    public PnlRegistroPagos(JDialog dialogParent) {
+        this.dialogParent = dialogParent;
         initComponents();
         initObjects();
         cargarDatos();
@@ -248,8 +266,16 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Frame f = JOptionPane.getFrameForComponent(this);
-        DialogBuscarCliente dialog = new DialogBuscarCliente(f, true, this);
+        //if(dialogParent==null) Frame f = JOptionPane.getFrameForComponent(this);
+        DialogBuscarCliente dialog = null;
+        if(dialogParent!=null){
+            dialog = new DialogBuscarCliente(dialogParent, true, this);
+        }
+        else if(frame!=null){
+            Frame f = JOptionPane.getFrameForComponent(this);
+            dialog = new DialogBuscarCliente(f, true, this);
+        }
+           
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
