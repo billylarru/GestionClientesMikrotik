@@ -313,6 +313,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
             pago.setPersonal(Singleton.getInstance().getPersonal());
             pago.setCliente(servicio.getCliente());
 
+            servicio.setEstadoServicio("HABILITADO");
             if(daopagos.registrarPago(pago)){
                 JOptionPane.showMessageDialog(this, "¡Pago registrado correctamente!", "REGISTRO SATISFACTORIO", JOptionPane.INFORMATION_MESSAGE);
             }else{

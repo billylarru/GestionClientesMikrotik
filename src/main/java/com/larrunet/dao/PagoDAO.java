@@ -22,7 +22,7 @@ public class PagoDAO {
         manager.getTransaction().begin();
         
         manager.persist(pago);
-        
+        manager.merge(pago.getCliente().getServicio());
         manager.getTransaction().commit();
         
         registrado = pago.getIdPago()==null?false:true;
