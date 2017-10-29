@@ -176,4 +176,15 @@ public class ServicioDAO {
                        
         return list;
     }
+    
+    public void cortarServicio(Servicio servicio){
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        manager.getTransaction().begin();
+        
+        servicio.setEstadoServicio("CORTADO");
+        manager.merge(servicio);
+        
+        manager.getTransaction().commit();
+        manager.close();
+    }
 }

@@ -262,7 +262,18 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     }
     
     private void cortarServicio(){
+        int selectedRow = tblClientes.getSelectedRow();
+        Servicio servicio = listaServicios.get(selectedRow);
         
+        daoservicios.cortarServicio(servicio);
+        
+        if(rbtPorVencer.isSelected()){
+            listarServiciosPorVencer();
+        }else if(rbtListarTodos.isSelected()){
+            listarTodosLosServicios();
+        }else if(rbtCortados.isSelected()){
+            listarServiciosCortados();
+        }
     }
     
   
