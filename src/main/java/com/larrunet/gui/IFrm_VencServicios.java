@@ -10,6 +10,7 @@ import com.larrunet.bean.Pago;
 import com.larrunet.bean.Servicio;
 import com.larrunet.dao.ServicioDAO;
 import com.larrunet.util.IFrameListener;
+import com.larrunet.util.RowsRenderer;
 import com.larrunet.util.TableMouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,10 +38,15 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         this.addInternalFrameListener(new IFrameListener());
         initObjects();
         makePopUp();
+        renderizarFilas();
         rbtPorVencer.setSelected(true);
         listarServiciosPorVencer();
     }
     
+    private void renderizarFilas(){
+        RowsRenderer rr = new RowsRenderer(3);
+        tblClientes.setDefaultRenderer(Object.class, rr);
+    }
     
      private void makePopUp() {
         popupMenu = new JPopupMenu();
