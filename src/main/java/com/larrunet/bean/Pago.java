@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.Period;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -29,37 +30,38 @@ import javax.persistence.GenerationType;
 @Entity
 @Table(name = "PAGO")
 public class Pago implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdPago")
     private Integer idPago;
-    
+
     @Column(name = "FechaEmision")
     private LocalDateTime fechaEmision;
-    
+
     @Column(name = "FechaInicio")
     private LocalDate fechaInicio;
-    
+
     @Column(name = "FechaVenc")
     private LocalDate fechaVencimiento;
-    
+
     @Column(name = "MontoPago")
     private Double montoPago;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CodPersonal")
     private Personal personal;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CodCliente")
     private Cliente cliente;
-    
+
     @Column(name = "EstadoPago")
     private String estadoPago;
-    
+
     @OneToMany(mappedBy = "pago", cascade = {CascadeType.ALL})
     private List<PagoParcial> pagosParcial = new ArrayList<>();
-    
+
     public Pago() {
     }
 
@@ -165,23 +167,64 @@ public class Pago implements Serializable {
 
     public void setPagosParcial(List<PagoParcial> pagosParcial) {
         this.pagosParcial = pagosParcial;
-        pagosParcial.forEach(pp->pp.setPago(this));
+        pagosParcial.forEach(pp -> pp.setPago(this));
     }
 
-    public void addPagoParcial(PagoParcial pagoParcial){
-        
-        if(!pagosParcial.contains(pagoParcial)){
+    public void addPagoParcial(PagoParcial pagoParcial) {
+
+        if (!pagosParcial.contains(pagoParcial)) {
             pagosParcial.add(pagoParcial);
             pagoParcial.setPago(this);
-        } 
+        }
     }
-    
+
+    public String getVenceEn() {
+        String vence = "";
+        LocalDate fechaActual = LocalDate.now();
+
+        Period periodo = Period.between(fechaActual, fechaVencimiento);
+        int dias = periodo.getDays();
+        int meses = periodo.getMonths();
+        int anios = periodo.getYears();
+
+        if (dias < 0 && meses == 0 && anios == 0) {
+            if (dias == -1) {
+                vence = "Hace 1 díaa";
+            } else {
+                vence = "Hace " + Integer.toString(dias) + " días";
+            }
+        } else if (dias == 0 && meses == 0 && anios == 0) {
+            vence = "Hoy";
+        } else if (dias > 0 && meses == 0 && anios == 0) {
+            if (dias == 1) {
+                vence = "En 1 día";
+            } else {
+                vence = "En " + Integer.toString(dias) + " días";
+            }
+        } else if (dias >= 0 && meses > 0 && anios == 0) {
+            vence = "En ";
+
+            if (meses == 1) {
+                vence += "1 mes";
+            } else if (meses > 1) {
+                vence += Integer.toString(meses) + " meses";
+            }
+
+            if (dias == 1) {
+                vence += Integer.toString(dias) + " día";
+            } else if (dias > 1) {
+                vence += Integer.toString(dias) + " días";
+            }
+        } else {
+            vence += Integer.toString(anios) + " años " + Integer.toString(meses) + " meses " + Integer.toString(dias) + " días";
+        }
+
+        return vence;
+    }
+
     @Override
     public String toString() {
         return "Pago{" + "idPago=" + idPago + ", fechaEmision=" + fechaEmision + ", fechaInicio=" + fechaInicio + ", fechaVencimiento=" + fechaVencimiento + ", montoPago=" + montoPago + ", estadoPago=" + estadoPago + '}';
     }
 
-    
-    
-    
 }

@@ -46,8 +46,9 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         Cliente cliente = null;
         for (Servicio servicio : listaServicios) {
             cliente = servicio.getCliente();
-            Pago pago = cliente.getPagos().get(0);
-            Object[] row = {cliente.getNombresCompletos(), pago.getFechaInicio(), pago.getFechaVencimiento(), "Hace un dia"};
+            List<Pago> listaPagos = cliente.getPagos();
+            Pago pago = listaPagos.get(listaPagos.size()-1);
+            Object[] row = {cliente.getNombresCompletos(), pago.getFechaInicio(), pago.getFechaVencimiento(), pago.getVenceEn()};
             model.addRow(row);
         }
     }
