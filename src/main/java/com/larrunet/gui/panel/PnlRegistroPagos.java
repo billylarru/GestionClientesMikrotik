@@ -12,6 +12,7 @@ import com.larrunet.dao.PagoDAO;
 import com.larrunet.gui.DialogBuscarCliente;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.Singleton;
+import java.awt.Frame;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -247,7 +248,8 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        DialogBuscarCliente dialog = new DialogBuscarCliente(null, true, this);
+        Frame f = JOptionPane.getFrameForComponent(this);
+        DialogBuscarCliente dialog = new DialogBuscarCliente(f, true, this);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
