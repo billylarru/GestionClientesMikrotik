@@ -232,7 +232,9 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaServicios.get(selectedRow);
         
-        //Se necesita llamar al JInternalFrame... :(
+        DialogRegistrarPago dialog = new DialogRegistrarPago(null, true, servicio);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
     }
     
     private void cortarServicio(){
