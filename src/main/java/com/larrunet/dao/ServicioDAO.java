@@ -121,7 +121,7 @@ public class ServicioDAO {
      * lista todos los servicios habilitados sin importar el tiempo de vencimiento
      * @return 
      */
-    public List<Servicio> listarTodosLosServicios(){
+    public List<Servicio> listarTodosLosServiciosPorEstado(String estado){
         List<Servicio> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
         String jpql = "select s From Servicio s "+
@@ -130,7 +130,7 @@ public class ServicioDAO {
                 "where "+
                 "p.idPago=(select max(sp.idPago) from Pago sp where sp.cliente.codCliente=c.codCliente) "+
                 "and "+
-                "s.estadoServicio='HABILITADO'";
+                "s.estadoServicio='"+estado+"'";
         
         list = (List<Servicio>) manager.createQuery(jpql).getResultList();
         
@@ -141,6 +141,14 @@ public class ServicioDAO {
         manager.close();
         return list;
     }
+    
+    public List<Servicio> listarTodosLosServicios(){
+        List<Servicio> list;
+        list = listarTodosLosServiciosPorEstado("HABILITADO");
+        return list;
+    }
+    
+    
     
     public List<Servicio> listarServiciosPorVencer(){
         List<Servicio> list = new ArrayList<>();
@@ -158,6 +166,14 @@ public class ServicioDAO {
             
         }
            
+        return list;
+    }
+    
+    public List<Servicio> listarCortados(){
+        List<Servicio> list = new ArrayList<>();
+        
+        list = listarTodosLosServiciosPorEstado("CORTADO");
+                       
         return list;
     }
 }

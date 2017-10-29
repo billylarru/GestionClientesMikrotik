@@ -85,6 +85,11 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         renderizarTabla(listaServicios);
     }
     
+    public void listarServiciosCortados(){
+        listaServicios = daoservicios.listarCortados();
+        renderizarTabla(listaServicios);
+    }
+    
     private void renderizarTabla(List<Servicio> list){
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
@@ -114,6 +119,7 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         rbtListarTodos = new javax.swing.JRadioButton();
         txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        rbtCortados = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
 
@@ -140,6 +146,14 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar por Nombre:");
 
+        buttonGroup1.add(rbtCortados);
+        rbtCortados.setText("Cortados");
+        rbtCortados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtCortadosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -151,6 +165,8 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
                         .addComponent(rbtPorVencer)
                         .addGap(26, 26, 26)
                         .addComponent(rbtListarTodos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtCortados)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -164,7 +180,8 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtPorVencer)
-                    .addComponent(rbtListarTodos))
+                    .addComponent(rbtListarTodos)
+                    .addComponent(rbtCortados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,6 +247,10 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         listarTodosLosServicios();
     }//GEN-LAST:event_rbtListarTodosActionPerformed
 
+    private void rbtCortadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtCortadosActionPerformed
+       listarServiciosCortados();
+    }//GEN-LAST:event_rbtCortadosActionPerformed
+
     private void cobrarServicio(){
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaServicios.get(selectedRow);
@@ -266,6 +287,7 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbtCortados;
     private javax.swing.JRadioButton rbtListarTodos;
     private javax.swing.JRadioButton rbtPorVencer;
     private javax.swing.JTable tblClientes;
