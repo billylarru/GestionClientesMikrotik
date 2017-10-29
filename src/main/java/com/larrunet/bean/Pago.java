@@ -191,7 +191,7 @@ public class Pago implements Serializable {
             if (dias == -1) {
                 vence = "Hace 1 día";
             } else {
-                vence = "Hace " + Integer.toString(dias) + " días";
+                vence = "Hace " + Integer.toString(Math.abs(dias)) + " días";
             }
         } else if (dias == 0 && meses == 0 && anios == 0) {
             vence = "Hoy";
