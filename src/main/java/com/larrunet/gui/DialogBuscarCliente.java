@@ -8,6 +8,7 @@ package com.larrunet.gui;
 import com.larrunet.bean.Cliente;
 import com.larrunet.bean.Servicio;
 import com.larrunet.dao.ServicioDAO;
+import com.larrunet.gui.panel.PnlRegistroPagos;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,14 +21,14 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
     ServicioDAO daoservicios;
     List<Servicio> listaServicios;
     
-    private IFrm_RegistrarPago iframe;
+    private PnlRegistroPagos panelRegistroPagos;
     /**
      * Creates new form DialogBuscarCliente
      */
-    public DialogBuscarCliente(java.awt.Frame parent, boolean modal, IFrm_RegistrarPago iframe) {
+    public DialogBuscarCliente(java.awt.Frame parent, boolean modal, PnlRegistroPagos panelRegistroPagos) {
         super(parent, modal);
         initComponents();
-        this.iframe = iframe;
+        this.panelRegistroPagos = panelRegistroPagos;
         initObjects();
         listarServicios();
     }
@@ -171,7 +172,7 @@ public class DialogBuscarCliente extends javax.swing.JDialog {
             
             if(selectedRow>=0){
                 Servicio servicio = listaServicios.get(selectedRow);
-                iframe.mostrarServicio(servicio);
+                panelRegistroPagos.mostrarServicio(servicio);
                 dispose();
             }
             
