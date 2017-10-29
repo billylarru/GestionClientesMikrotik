@@ -6,6 +6,7 @@
 package com.larrunet.dao;
 
 import com.larrunet.bean.Hotspot;
+import com.larrunet.bean.Pago;
 import com.larrunet.bean.Servicio;
 import com.larrunet.util.EMF;
 import java.util.ArrayList;
@@ -116,7 +117,11 @@ public class ServicioDAO {
         return list;
     }
     
-    public List<Servicio> listarServiciosPorVencer(){
+    /**
+     * lista todos los servicios habilitados sin importar el tiempo de vencimiento
+     * @return 
+     */
+    public List<Servicio> listarTodosLosServicios(){
         List<Servicio> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
         String jpql = "select s From Servicio s "+
@@ -134,6 +139,25 @@ public class ServicioDAO {
             servicio.getCliente().getPagos().forEach(p->p.getIdPago());
         }
         manager.close();
+        return list;
+    }
+    
+    public List<Servicio> listarServiciosPorVencer(){
+        List<Servicio> list = new ArrayList<>();
+        List<Servicio> temp;
+        
+        temp = listarTodosLosServicios();
+              
+        for(Servicio s : temp){
+            List<Pago> pagos = s.getCliente().getPagos();
+            Pago pago = pagos.get(pagos.size()-1);
+            
+            if(pago.estaPorVencer()){
+                list.add(s);
+            }
+            
+        }
+           
         return list;
     }
 }
