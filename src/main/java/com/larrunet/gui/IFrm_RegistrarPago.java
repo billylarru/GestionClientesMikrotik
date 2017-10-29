@@ -36,7 +36,7 @@ public class IFrm_RegistrarPago extends javax.swing.JInternalFrame {
         this.addInternalFrameListener(new IFrameListener());
         cargarDatos();
     }
-
+    
     public void initObjects(){
         daopagos = new PagoDAO();
     }

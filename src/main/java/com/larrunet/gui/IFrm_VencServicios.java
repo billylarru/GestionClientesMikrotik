@@ -229,14 +229,17 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtListarTodosActionPerformed
 
     private void cobrarServicio(){
+        int selectedRow = tblClientes.getSelectedRow();
+        Servicio servicio = listaServicios.get(selectedRow);
         
+        //Se necesita llamar al JInternalFrame... :(
     }
     
     private void cortarServicio(){
         
     }
     
-    
+  
     private class ActionTable implements ActionListener {
 
         @Override
