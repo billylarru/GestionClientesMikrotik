@@ -30,8 +30,9 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     ServicioDAO daoservicios;
     List<Servicio> listaServicios;
     private JPopupMenu popupMenu;
-    
+
     private JMenuItem menuItemCobrar, menuItemCortar;
+
     /**
      * Creates new form IFrm_Vencimientos
      */
@@ -44,13 +45,13 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         rbtPorVencer.setSelected(true);
         listarServiciosPorVencer();
     }
-    
-    private void renderizarFilas(){
+
+    private void renderizarFilas() {
         RowsRenderer rr = new RowsRenderer(3);
         tblClientes.setDefaultRenderer(Object.class, rr);
     }
-    
-     private void makePopUp() {
+
+    private void makePopUp() {
         popupMenu = new JPopupMenu();
         menuItemCobrar = new JMenuItem("Cobrar");
         menuItemCortar = new JMenuItem("Cortar");
@@ -67,38 +68,35 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
         popupMenu.add(menuItemCortar);
 
     }
-     
-     
-    private void initObjects(){
+
+    private void initObjects() {
         daoservicios = new ServicioDAO();
     }
-    
-    
-    
-    public void listarTodosLosServicios(){
+
+    public void listarTodosLosServicios() {
         listaServicios = daoservicios.listarTodosLosServicios();
         renderizarTabla(listaServicios);
     }
-    
-    public void listarServiciosPorVencer(){
+
+    public void listarServiciosPorVencer() {
         listaServicios = daoservicios.listarServiciosPorVencer();
         renderizarTabla(listaServicios);
     }
-    
-    public void listarServiciosCortados(){
+
+    public void listarServiciosCortados() {
         listaServicios = daoservicios.listarCortados();
         renderizarTabla(listaServicios);
     }
-    
-    private void renderizarTabla(List<Servicio> list){
+
+    private void renderizarTabla(List<Servicio> list) {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
-        
+
         Cliente cliente = null;
         for (Servicio servicio : list) {
             cliente = servicio.getCliente();
             List<Pago> listaPagos = cliente.getPagos();
-            Pago pago = listaPagos.get(listaPagos.size()-1);
+            Pago pago = listaPagos.get(listaPagos.size() - 1);
             Object[] row = {cliente.getNombresCompletos(), pago.getFechaInicio(), pago.getFechaVencimiento(), pago.getVenceEn()};
             model.addRow(row);
         }
@@ -248,42 +246,44 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtListarTodosActionPerformed
 
     private void rbtCortadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtCortadosActionPerformed
-       listarServiciosCortados();
+        listarServiciosCortados();
     }//GEN-LAST:event_rbtCortadosActionPerformed
 
-    private void cobrarServicio(){
+    private void cobrarServicio() {
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaServicios.get(selectedRow);
-        
+
         Frame f = JOptionPane.getFrameForComponent(this);
         DialogRegistrarPago dialog = new DialogRegistrarPago(f, true, servicio);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
-    
-    private void cortarServicio(){
-        
-        if(rbtCortados.isSelected()){
+
+    private void cortarServicio() {
+
+        if (rbtCortados.isSelected()) {
             JOptionPane.showMessageDialog(null, "No se puede cortar un cliente ya cortado", "ERROR", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        
+
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaServicios.get(selectedRow);
-        
-        daoservicios.cortarServicio(servicio);
-        
-        if(rbtPorVencer.isSelected()){
-            listarServiciosPorVencer();
-        }else if(rbtListarTodos.isSelected()){
-            listarTodosLosServicios();
-        }else if(rbtCortados.isSelected()){
-            listarServiciosCortados();
+        Cliente cliente = servicio.getCliente();
+
+        if (JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea cortar el servicio a  "+cliente.getNombresCompletos()+"?", "CONFIRMAR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            daoservicios.cortarServicio(servicio);
+
+            if (rbtPorVencer.isSelected()) {
+                listarServiciosPorVencer();
+            } else if (rbtListarTodos.isSelected()) {
+                listarTodosLosServicios();
+            } else if (rbtCortados.isSelected()) {
+                listarServiciosCortados();
+            }
         }
+
     }
-    
-  
+
     private class ActionTable implements ActionListener {
 
         @Override
