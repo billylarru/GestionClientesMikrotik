@@ -9,6 +9,7 @@ import com.larrunet.bean.Hotspot;
 import com.larrunet.bean.Pago;
 import com.larrunet.bean.Servicio;
 import com.larrunet.util.EMF;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -182,6 +183,7 @@ public class ServicioDAO {
         manager.getTransaction().begin();
         
         servicio.setEstadoServicio("CORTADO");
+        servicio.setFechaCorte(LocalDateTime.now());
         manager.merge(servicio);
         
         manager.getTransaction().commit();
