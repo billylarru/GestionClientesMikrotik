@@ -330,7 +330,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
 
     public void mostrarInforme(Pago pago, Connection cn){
         Map parametros =new HashMap();
-        //parametros.put("idPago", pago.getIdPago());
+        parametros.put("idPago", pago.getIdPago());
         Reportes reportes=new Reportes();
         reportes.mostrarInforme("comprobantepago.jasper", parametros, cn);
     }

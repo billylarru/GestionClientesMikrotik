@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd230384-4203-4281-9fd7-d9054f1f04eb">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobantepago" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd230384-4203-4281-9fd7-d9054f1f04eb">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="83"/>
-	<queryString language="SQL">
+	<parameter name="idPago" class="java.lang.String"/>
+	<queryString>
 		<![CDATA[SELECT
      CLIENTE.`CodCliente` AS CLIENTE_CodCliente,
      CLIENTE.`NombresCliente` AS CLIENTE_NombresCliente,
@@ -15,7 +16,7 @@
      PAGO.`MontoPago` AS PAGO_MontoPago,
      PAGO.`EstadoPago` AS PAGO_EstadoPago
 FROM
-     `CLIENTE` CLIENTE INNER JOIN `PAGO` PAGO ON CLIENTE.`CodCliente` = PAGO.`CodCliente`]]>
+     `CLIENTE` CLIENTE INNER JOIN `PAGO` PAGO ON CLIENTE.`CodCliente` = PAGO.`CodCliente` WHERE PAGO.`IdPago`=$P{idPago}]]>
 	</queryString>
 	<field name="CLIENTE_CodCliente" class="java.lang.String"/>
 	<field name="CLIENTE_NombresCliente" class="java.lang.String"/>
