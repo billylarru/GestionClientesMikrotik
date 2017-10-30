@@ -262,6 +262,13 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     }
     
     private void cortarServicio(){
+        
+        if(rbtCortados.isSelected()){
+            JOptionPane.showMessageDialog(null, "No se puede cortar un cliente ya cortado", "ERROR", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaServicios.get(selectedRow);
         
