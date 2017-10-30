@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd230384-4203-4281-9fd7-d9054f1f04eb">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="83"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      CLIENTE.`CodCliente` AS CLIENTE_CodCliente,
@@ -33,11 +33,28 @@ FROM
 		<band height="79" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="167" splitType="Stretch">
+		<band height="280" splitType="Stretch">
 			<textField>
-				<reportElement x="16" y="11" width="508" height="51" uuid="ac7bd134-dd5d-418b-982d-2c9cecb45c82"/>
+				<reportElement x="16" y="11" width="527" height="106" uuid="ac7bd134-dd5d-418b-982d-2c9cecb45c82"/>
+				<textElement>
+					<font size="13"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Recibí de "+$F{CLIENTE_NombresCliente}+" "+$F{CLIENTE_ApePaternoCliente}+" "+$F{CLIENTE_ApeMaternoCliente}+" S/. "+$F{PAGO_MontoPago}+" por concepto de Internet del mes de "+new SimpleDateFormat("dd 'de' MMMMM ").format($F{PAGO_FechaInicio})+" al "+new SimpleDateFormat("dd 'de' MMMMM 'del' yyyy").format($F{PAGO_FechaVenc})]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="189" width="555" height="74" uuid="6162c6c8-7ed8-47e8-9302-0eb73d984316"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALAN LARRU HERNANDEZ
+DNI: 40118300
+RPC: 987270884
+Cta soles: 192-36389239-0-05]]></text>
+			</staticText>
+			<line>
+				<reportElement x="140" y="180" width="275" height="1" uuid="d79fc498-eba3-4a90-8732-146c5926876b"/>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
