@@ -11,15 +11,19 @@ import com.larrunet.bean.Servicio;
 import com.larrunet.dao.PagoDAO;
 import com.larrunet.gui.DialogBuscarCliente;
 import com.larrunet.gui.IFrm_RegistrarPago;
+import com.larrunet.report.Reportes;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.Singleton;
 import java.awt.Frame;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -314,7 +318,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
             pago.setCliente(servicio.getCliente());
 
             servicio.setEstadoServicio("HABILITADO");
-            if(daopagos.registrarPago(pago)){
+            if(daopagos.registrarPago(pago, this)){
                 JOptionPane.showMessageDialog(this, "¡Pago registrado correctamente!", "REGISTRO SATISFACTORIO", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(this, "¡No se pudo registrar el pago!", "ERROR AL REGISTRAR PAGO", JOptionPane.ERROR_MESSAGE);
@@ -324,6 +328,12 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRegistrarPagoActionPerformed
 
+    public void mostrarInforme(Pago pago, Connection cn){
+        Map parametros =new HashMap();
+        //parametros.put("idPago", pago.getIdPago());
+        Reportes reportes=new Reportes();
+        reportes.mostrarInforme("report1.jasper", parametros, cn);
+    }
     
     public void mostrarServicio(Servicio servicio) {
         this.servicio = servicio;
