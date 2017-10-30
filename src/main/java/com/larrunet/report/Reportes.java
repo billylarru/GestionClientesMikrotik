@@ -45,6 +45,7 @@ public class Reportes {
 
         if (informe != null && jp!=null) {
             JasperViewer jv = new JasperViewer(jp, false);
+            jv.setTitle("Pago");
             jv.setLocationRelativeTo(null);
             jv.setVisible(true);
         }else{
@@ -61,6 +62,7 @@ public class Reportes {
 
             JasperPrint jp = JasperFillManager.fillReport(informe, parametros, cn);
             JasperViewer jv = new JasperViewer(jp, false);
+            jv.setTitle("Pago");
             jv.setLocationRelativeTo(null);
             jv.setVisible(true);
         } catch (JRException e) {

@@ -322,10 +322,10 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
             servicio.setEstadoServicio("HABILITADO");
             
             if(daopagos.registrarPago(pago, this)){
-                JOptionPane.showMessageDialog(this, "¡Pago registrado correctamente!", "REGISTRO SATISFACTORIO", JOptionPane.INFORMATION_MESSAGE);
-                mostrarInforme();
                 if(frame!=null) frame.dispose();
                 else if(dialogParent!=null) dialogParent.dispose();
+                JOptionPane.showMessageDialog(this, "¡Pago registrado correctamente!", "REGISTRO SATISFACTORIO", JOptionPane.INFORMATION_MESSAGE);
+                mostrarInforme();
             }else{
                 JOptionPane.showMessageDialog(this, "¡No se pudo registrar el pago!", "ERROR AL REGISTRAR PAGO", JOptionPane.ERROR_MESSAGE);
             }
