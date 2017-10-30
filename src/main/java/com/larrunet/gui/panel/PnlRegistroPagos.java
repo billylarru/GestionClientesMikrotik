@@ -37,6 +37,8 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
     IFrm_RegistrarPago frame;
     
     JDialog dialogParent;
+    
+    Reportes reporte;
     /**
      * Creates new form PnlRegistroPagos
      */
@@ -318,8 +320,12 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
             pago.setCliente(servicio.getCliente());
 
             servicio.setEstadoServicio("HABILITADO");
+            
             if(daopagos.registrarPago(pago, this)){
                 JOptionPane.showMessageDialog(this, "¡Pago registrado correctamente!", "REGISTRO SATISFACTORIO", JOptionPane.INFORMATION_MESSAGE);
+                mostrarInforme();
+                if(frame!=null) frame.dispose();
+                else if(dialogParent!=null) dialogParent.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "¡No se pudo registrar el pago!", "ERROR AL REGISTRAR PAGO", JOptionPane.ERROR_MESSAGE);
             }
@@ -328,11 +334,15 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRegistrarPagoActionPerformed
 
-    public void mostrarInforme(Pago pago, Connection cn){
+    public void prepararInforme(Pago pago, Connection cn){
         Map parametros =new HashMap();
         parametros.put("idPago", pago.getIdPago());
-        Reportes reportes=new Reportes();
-        reportes.mostrarInforme("comprobantepago.jasper", parametros, cn);
+        reporte=new Reportes();
+        reporte.prepararInforme("comprobantepago.jasper", parametros, cn);
+    }
+    
+    public void mostrarInforme(){
+        reporte.mostrarInforme();
     }
     
     public void mostrarServicio(Servicio servicio) {

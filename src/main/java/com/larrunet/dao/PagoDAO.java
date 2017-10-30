@@ -47,7 +47,7 @@ public class PagoDAO {
         if(registrado){
             SharedSessionContractImplementor session = (SharedSessionContractImplementor)manager.getDelegate();
             Connection connection = session.connection();
-            panelPagos.mostrarInforme(pago, connection);
+            panelPagos.prepararInforme(pago, connection);
         }
         
         manager.close();
