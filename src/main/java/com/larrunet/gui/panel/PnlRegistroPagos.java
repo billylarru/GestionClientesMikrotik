@@ -39,6 +39,9 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
     JDialog dialogParent;
     
     Reportes reporte;
+    
+    private boolean campos_validados;
+    
     /**
      * Creates new form PnlRegistroPagos
      */
@@ -271,6 +274,28 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void validarCampos() {
+        if (txtMontoPagar.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el monto a pagar", "FALTA INGRESAR MONTO A PAGAR", JOptionPane.WARNING_MESSAGE);
+            txtMontoPagar.requestFocus();
+            campos_validados = false;
+            return;
+        }
+        
+        if (txtMontoRecibido.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese el monto recibido", "FALTA INGRESAR MONTO RECIBIDO", JOptionPane.WARNING_MESSAGE);
+            txtMontoRecibido.requestFocus();
+            campos_validados = false;
+            return;
+        }
+
+        campos_validados = true;
+    }
+    
+    
+    
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         //if(dialogParent==null) Frame f = JOptionPane.getFrameForComponent(this);
         DialogBuscarCliente dialog = null;
@@ -291,6 +316,16 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMontoPagarKeyReleased
 
     private void btnRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPagoActionPerformed
+        validarCampos();
+        
+        if(campos_validados){
+            registrarPago();
+        }
+        
+    }//GEN-LAST:event_btnRegistrarPagoActionPerformed
+
+    
+    private void registrarPago(){
         if (servicio != null) {
             Pago pago = new Pago();
 
@@ -332,8 +367,10 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Especifique el cliente al que se le va a cobrar", "FALTA CLIENTE", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnRegistrarPagoActionPerformed
-
+    }
+    
+    
+    
     public void prepararInforme(Pago pago, Connection cn){
         Map parametros =new HashMap();
         parametros.put("idPago", pago.getIdPago());
