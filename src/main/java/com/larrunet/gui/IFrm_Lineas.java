@@ -100,7 +100,6 @@ public class IFrm_Lineas extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximizable(true);
         setTitle("Mantenimiento de Lineas");
 
         jLabel1.setText("Id:");
