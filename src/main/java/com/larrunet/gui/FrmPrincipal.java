@@ -71,6 +71,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_registro_pago.addActionListener(al);
         mi_personal.addActionListener(al);
         mi_vencimientos.addActionListener(al);
+        mi_listaclientes.addActionListener(al);
         
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
@@ -78,6 +79,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_registro_pago.setActionCommand("RegistrarPago");
         mi_personal.setActionCommand("Personal");
         mi_vencimientos.setActionCommand("VencServicios");
+        mi_listaclientes.setActionCommand("ListaClientes");
     }
     
     private void makeIFrame(String key){
@@ -92,6 +94,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             else if(key.equalsIgnoreCase("RegistrarPago")) iframe = new IFrm_RegistrarPago();
             else if(key.equalsIgnoreCase("Personal")) iframe = new IFrm_Personal();
             else if(key.equalsIgnoreCase("VencServicios")) iframe = new IFrm_VencServicios();
+            else if(key.equalsIgnoreCase("ListaClientes")) iframe = new IFrm_ListaClientes();
 
             HashList.getInstance().getList().put(key, iframe);
             
@@ -130,6 +133,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         mi_vencimientos = new javax.swing.JMenuItem();
         mi_registro_pago = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        mi_listaclientes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Pagos L@rrunet");
@@ -208,6 +213,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Otros");
+
+        mi_listaclientes.setText("lista de clientes");
+        jMenu3.add(mi_listaclientes);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,6 +256,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -252,6 +265,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_antenas;
     private javax.swing.JMenuItem mi_cliente;
     private javax.swing.JMenuItem mi_lineas;
+    private javax.swing.JMenuItem mi_listaclientes;
     private javax.swing.JMenuItem mi_personal;
     private javax.swing.JMenuItem mi_registro_pago;
     private javax.swing.JMenuItem mi_vencimientos;

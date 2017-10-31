@@ -189,4 +189,30 @@ public class ServicioDAO {
         manager.getTransaction().commit();
         manager.close();
     }
+    
+    public List<Servicio> listarTodosLosClientes(){
+        List<Servicio> list;
+        EntityManager manager = EMF.getInstance().createEntityManager();
+        String jpql = "select s From Servicio s "+
+                "JOIN s.cliente c "+
+                "JOIN c.pagos p "+
+                "where "+
+                "p.idPago=(select max(sp.idPago) from Pago sp where sp.cliente.codCliente=c.codCliente)";
+        
+        list = (List<Servicio>) manager.createQuery(jpql).getResultList();
+        
+        for(Servicio servicio : list){
+            System.out.println(servicio.getCliente().getPagos());
+            servicio.getCliente().getPagos().forEach(p->p.getIdPago());
+            
+            if(servicio.getAntena()!=null) servicio.getAntena().getCodAntena();
+            if(servicio.getHotspots().size()>0) servicio.getHotspots().forEach(h->h.getIP());
+            
+        }
+        manager.close();
+        return list;
+    }
+    
+    
+    
 }
