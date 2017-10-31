@@ -15,6 +15,7 @@ import com.larrunet.report.Reportes;
 import com.larrunet.util.IFrameListener;
 import com.larrunet.util.Singleton;
 import java.awt.Frame;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -182,12 +183,21 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         jLabel3.setText("Monto a pagar:");
 
         txtMontoPagar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoPagarKeyTyped(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMontoPagarKeyReleased(evt);
             }
         });
 
         jLabel5.setText("Monto recibido:");
+
+        txtMontoRecibido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoRecibidoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -323,6 +333,32 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnRegistrarPagoActionPerformed
+
+    private void txtMontoPagarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoPagarKeyTyped
+        char keychar=evt.getKeyChar();
+        
+        if( (keychar<'0' || keychar>'9') && keychar!=KeyEvent.VK_BACK_SPACE){
+            evt.consume();
+        }
+        
+        if(txtMontoPagar.getText().length()==0){
+            txtMontoPagar.setText("0");
+            txtMontoPagar.selectAll();
+        }
+    }//GEN-LAST:event_txtMontoPagarKeyTyped
+
+    private void txtMontoRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoRecibidoKeyTyped
+        char keychar=evt.getKeyChar();
+        
+        if( (keychar<'0' || keychar>'9') && keychar!=KeyEvent.VK_BACK_SPACE){
+            evt.consume();
+        }
+        
+        if(txtMontoRecibido.getText().length()==0){
+            txtMontoRecibido.setText("0");
+            txtMontoRecibido.selectAll();
+        }
+    }//GEN-LAST:event_txtMontoRecibidoKeyTyped
 
     
     private void registrarPago(){

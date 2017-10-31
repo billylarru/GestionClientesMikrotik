@@ -15,6 +15,7 @@ import com.larrunet.util.IFrameListener;
 import com.larrunet.util.TableMouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -240,6 +241,12 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Servicio"));
 
         jLabel6.setText("Pago mensual (S/.):");
+
+        txtPagoMensual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPagoMensualKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("observacion(opcional):");
 
@@ -487,6 +494,19 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtPagoMensualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoMensualKeyTyped
+        char keychar=evt.getKeyChar();
+        
+        if( (keychar<'0' || keychar>'9') && keychar!=KeyEvent.VK_BACK_SPACE){
+            evt.consume();
+        }
+        
+        if(txtPagoMensual.getText().length()==0){
+            txtPagoMensual.setText("0");
+            txtPagoMensual.selectAll();
+        }
+    }//GEN-LAST:event_txtPagoMensualKeyTyped
 
     private void cancelar() {
         btnRegistrar.setText("Registrar");
