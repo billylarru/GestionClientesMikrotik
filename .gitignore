@@ -17,3 +17,4 @@ src/main/resources/META-INF/persistence.xml
 
 #Ignorando backup de modelo de datos
 src/main/resources/model_db/model_db_mikrotik_clients.mwb.bak
+/target\backup/

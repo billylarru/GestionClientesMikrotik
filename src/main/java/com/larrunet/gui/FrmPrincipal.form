@@ -58,6 +58,11 @@
                 <Property name="text" type="java.lang.String" value="lista de clientes"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mi_exportar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exportar datos"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
