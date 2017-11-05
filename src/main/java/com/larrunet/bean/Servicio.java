@@ -216,7 +216,7 @@ public class Servicio implements Serializable{
             vence = "En ";
 
             if (meses == 1) {
-                vence += "1 mes";
+                vence += "1 mes ";
             } else if (meses > 1) {
                 vence += Integer.toString(meses) + " meses";
             }
