@@ -12,6 +12,8 @@ import com.larrunet.bean.Pago;
 import com.larrunet.bean.Servicio;
 import com.larrunet.dao.ServicioDAO;
 import com.larrunet.util.IFrameListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -130,8 +132,8 @@ public class IFrm_ListaClientes extends javax.swing.JInternalFrame {
             
             Object[] row = {
                 cliente.getNombresCompletos(), 
-                servicio.getFechaInicio(), 
-                servicio.getFechaVenc(), 
+                formatearFecha(servicio.getFechaInicio()), 
+                formatearFecha(servicio.getFechaVenc()), 
                 IPs, 
                 antena.getDescripAntena(),
                 cliente.getDireccionCliente(),
@@ -147,7 +149,16 @@ public class IFrm_ListaClientes extends javax.swing.JInternalFrame {
         for(Hotspot h: list){
             allIP+= h.getIP()+", ";
         }
+        allIP = allIP.substring(0, allIP.length()-2);
         return allIP;
+    }
+    
+    private String formatearFecha(LocalDate date){
+        String fechaFormateada = "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'de' MMM");
+        fechaFormateada = formatter.format(date);
+ 
+        return fechaFormateada;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

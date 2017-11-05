@@ -15,6 +15,10 @@ import com.larrunet.util.TableMouseListener;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -103,7 +107,7 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
                 venceEn = servicio.getVenceEn();
             }
             
-            Object[] row = {cliente.getNombresCompletos(), servicio.getFechaInicio(), servicio.getFechaVenc(), venceEn};
+            Object[] row = {cliente.getNombresCompletos(), formatearFecha(servicio.getFechaInicio()), formatearFecha(servicio.getFechaVenc()), venceEn};
             model.addRow(row);
         }
     }
@@ -290,6 +294,14 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
 
     }
 
+    private String formatearFecha(LocalDate date){
+        String fechaFormateada = "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'de' MMM");
+        fechaFormateada = formatter.format(date);
+ 
+        return fechaFormateada;
+    }
+    
     private class ActionTable implements ActionListener {
 
         @Override
