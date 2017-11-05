@@ -91,13 +91,19 @@ public class IFrm_VencServicios extends javax.swing.JInternalFrame {
     private void renderizarTabla(List<Servicio> list) {
         DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
         model.setRowCount(0);
-
+        
+        String venceEn = "";
         Cliente cliente = null;
         for (Servicio servicio : list) {
             cliente = servicio.getCliente();
-            List<Pago> listaPagos = cliente.getPagos();
-            Pago pago = listaPagos.get(listaPagos.size() - 1);
-            Object[] row = {cliente.getNombresCompletos(), pago.getFechaInicio(), pago.getFechaVencimiento(), pago.getVenceEn()};
+            
+            if(servicio.getFechaInicio()==null || servicio.getFechaVenc()==null){
+                venceEn = "No determinado";
+            }else{
+                venceEn = servicio.getVenceEn();
+            }
+            
+            Object[] row = {cliente.getNombresCompletos(), servicio.getFechaInicio(), servicio.getFechaVenc(), venceEn};
             model.addRow(row);
         }
     }

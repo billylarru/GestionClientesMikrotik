@@ -6,6 +6,7 @@
 package com.larrunet.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.time.Period;
 import javax.persistence.GeneratedValue;
 import org.hibernate.annotations.GenericGenerator;
 /**
@@ -40,6 +42,12 @@ public class Servicio implements Serializable{
     
     @Column(name = "Observacion")
     private String observacion;
+    
+    @Column(name = "FechaInicio")
+    private LocalDate fechaInicio;
+    
+    @Column(name = "FechaVenc")
+    private LocalDate fechaVenc;
     
     @Column(name = "FechaCorte")
     private LocalDateTime fechaCorte;
@@ -158,6 +166,22 @@ public class Servicio implements Serializable{
         }
     }
     
+     public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaVenc() {
+        return fechaVenc;
+    }
+
+    public void setFechaVenc(LocalDate fechaVenc) {
+        this.fechaVenc = fechaVenc;
+    }
+    
     public void addHotspot(Hotspot hotspot){
         if(!hotspots.contains(hotspot)){
             hotspots.add(hotspot);
@@ -165,12 +189,76 @@ public class Servicio implements Serializable{
         }
     }
 
+    public String getVenceEn() {
+        String vence = "";
+        LocalDate fechaActual = LocalDate.now();
+
+        Period periodo = Period.between(fechaActual, fechaVenc);
+        int dias = periodo.getDays();
+        int meses = periodo.getMonths();
+        int anios = periodo.getYears();
+
+        if (dias < 0 && meses == 0 && anios == 0) {
+            if (dias == -1) {
+                vence = "Hace 1 día";
+            } else {
+                vence = "Hace " + Integer.toString(Math.abs(dias)) + " días";
+            }
+        } else if (dias == 0 && meses == 0 && anios == 0) {
+            vence = "Hoy";
+        } else if (dias > 0 && meses == 0 && anios == 0) {
+            if (dias == 1) {
+                vence = "En 1 día";
+            } else {
+                vence = "En " + Integer.toString(dias) + " días";
+            }
+        } else if (dias >= 0 && meses > 0 && anios == 0) {
+            vence = "En ";
+
+            if (meses == 1) {
+                vence += "1 mes";
+            } else if (meses > 1) {
+                vence += Integer.toString(meses) + " meses";
+            }
+
+            if (dias == 1) {
+                vence += Integer.toString(dias) + " día";
+            } else if (dias > 1) {
+                vence += Integer.toString(dias) + " días";
+            }
+        } else {
+            vence += Integer.toString(anios) + " años " + Integer.toString(meses) + " meses " + Integer.toString(dias) + " días";
+        }
+
+        return vence;
+    }
+
+    public boolean estaPorVencer(){
+        boolean vencido = false;
+        
+        if(fechaInicio==null || fechaVenc==null) return vencido;
+        
+        LocalDate fechaActual = LocalDate.now();
+
+        Period periodo = Period.between(fechaActual, fechaVenc);
+        int dias = periodo.getDays();
+        int meses = periodo.getMonths();
+        int anios = periodo.getYears();
+        
+        if(anios==0 && meses==0 && dias<=1){
+            vencido = true;
+        }
+        return vencido;
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "Servicio{" + "codServicio=" + codServicio + ", pagoMensual=" + pagoMensual + ", observacion=" + observacion + ", fechaCorte=" + fechaCorte + ", estadoServicio=" + estadoServicio + '}';
     }
 
-    
+   
 
-    
+     
 }

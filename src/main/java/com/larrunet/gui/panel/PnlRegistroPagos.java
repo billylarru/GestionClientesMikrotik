@@ -382,14 +382,19 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
                 pago.addPagoParcial(pagoParcial);
             }
 
+            LocalDate fechaInicio = dateToLocalDate(dtpFechaInicio.getDate());
+            LocalDate fechaVenc = dateToLocalDate(dtpFechaVenc.getDate());
+            
             pago.setFechaEmision(LocalDateTime.now());
-            pago.setFechaInicio(dateToLocalDate(dtpFechaInicio.getDate()));
-            pago.setFechaVencimiento(dateToLocalDate(dtpFechaVenc.getDate()));
+            pago.setFechaInicio(fechaInicio);
+            pago.setFechaVencimiento(fechaVenc);
             pago.setMontoPago(montoPago);
 
             pago.setPersonal(Singleton.getInstance().getPersonal());
             pago.setCliente(servicio.getCliente());
 
+            servicio.setFechaInicio(fechaInicio);
+            servicio.setFechaVenc(fechaVenc);
             servicio.setEstadoServicio("HABILITADO");
             
             if(daopagos.registrarPago(pago, this)){

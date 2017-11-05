@@ -125,16 +125,13 @@ public class IFrm_ListaClientes extends javax.swing.JInternalFrame {
             Antena antena = servicio.getAntena();
             
             List<Hotspot> hotspots = servicio.getHotspots();
-            List<Pago> listaPagos = cliente.getPagos();
-            Pago pago = listaPagos.get(listaPagos.size() - 1);
-            
-            
+        
             String IPs = getAllIP(hotspots);
             
             Object[] row = {
                 cliente.getNombresCompletos(), 
-                pago.getFechaInicio(), 
-                pago.getFechaVencimiento(), 
+                servicio.getFechaInicio(), 
+                servicio.getFechaVenc(), 
                 IPs, 
                 antena.getDescripAntena(),
                 cliente.getDireccionCliente(),

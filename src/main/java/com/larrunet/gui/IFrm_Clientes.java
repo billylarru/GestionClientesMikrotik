@@ -764,13 +764,13 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         cboAntenaEmisora.setSelectedItem(antena.getDescripAntena());
 
         switch (servicio.getEstadoServicio()) {
-            case "Activo":
+            case "HABILITADO":
                 rbtHabilitado.setSelected(true);
                 break;
-            case "Cortado":
+            case "CORTADO":
                 rbtCortado.setSelected(true);
                 break;
-            case "En pruebas":
+            case "EN PRUEBAS":
                 rbtEnPruebas.setSelected(true);
                 break;
         }

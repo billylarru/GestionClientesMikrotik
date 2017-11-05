@@ -126,11 +126,7 @@ public class ServicioDAO {
         List<Servicio> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
         String jpql = "select s From Servicio s "+
-                "JOIN s.cliente c "+
-                "JOIN c.pagos p "+
                 "where "+
-                "p.idPago=(select max(sp.idPago) from Pago sp where sp.cliente.codCliente=c.codCliente) "+
-                "and "+
                 "s.estadoServicio='"+estado+"'";
         
         list = (List<Servicio>) manager.createQuery(jpql).getResultList();
@@ -157,12 +153,10 @@ public class ServicioDAO {
         
         temp = listarTodosLosServicios();
               
-        for(Servicio s : temp){
-            List<Pago> pagos = s.getCliente().getPagos();
-            Pago pago = pagos.get(pagos.size()-1);
+        for(Servicio servicio : temp){
             
-            if(pago.estaPorVencer()){
-                list.add(s);
+            if(servicio.estaPorVencer()){
+                list.add(servicio);
             }
             
         }
@@ -193,11 +187,7 @@ public class ServicioDAO {
     public List<Servicio> listarTodosLosClientes(){
         List<Servicio> list;
         EntityManager manager = EMF.getInstance().createEntityManager();
-        String jpql = "select s From Servicio s "+
-                "JOIN s.cliente c "+
-                "JOIN c.pagos p "+
-                "where "+
-                "p.idPago=(select max(sp.idPago) from Pago sp where sp.cliente.codCliente=c.codCliente)";
+        String jpql = "select s From Servicio s";
         
         list = (List<Servicio>) manager.createQuery(jpql).getResultList();
         
