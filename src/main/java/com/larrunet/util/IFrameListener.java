@@ -1,4 +1,3 @@
-
 package com.larrunet.util;
 
 import java.awt.Image;
@@ -6,30 +5,38 @@ import javax.swing.ImageIcon;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-public class IFrameListener implements InternalFrameListener{
+public class IFrameListener implements InternalFrameListener {
 
-  
+    private boolean closing;
+
+    private void removeIFrame(InternalFrameEvent e) {
+        String propertyIFrame = e.getInternalFrame().toString();
+        int beginIndex = propertyIFrame.indexOf("_");
+        int endIndex = propertyIFrame.indexOf("[");
+        String name = propertyIFrame.substring(beginIndex + 1, endIndex);
+
+        HashList.getInstance().getList().remove(name);
+    }
+
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
-        String propertyIFrame=e.getInternalFrame().toString();
-        int beginIndex=propertyIFrame.indexOf("_");
-        int endIndex=propertyIFrame.indexOf("[");
-        String name=propertyIFrame.substring(beginIndex+1, endIndex);
-        
-        e.getInternalFrame().dispose();
-        HashList.getInstance().getList().remove(name);
-          
+        removeIFrame(e);
+        closing = true;
     }
 
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {
-        int icon_width=16;
-        int icon_height=16;
+        int icon_width = 16;
+        int icon_height = 16;
         e.getInternalFrame().setFrameIcon(new ImageIcon(ApplicationIcon.getInstance().getImage().getScaledInstance(icon_width, icon_height, Image.SCALE_DEFAULT)));
     }
 
     @Override
     public void internalFrameClosed(InternalFrameEvent e) {
+        if (!closing) {
+            removeIFrame(e);
+        }
+
     }
 
     @Override
@@ -48,11 +55,4 @@ public class IFrameListener implements InternalFrameListener{
     public void internalFrameDeactivated(InternalFrameEvent e) {
     }
 
-   
- 
-
-  
-
-  
-    
 }
