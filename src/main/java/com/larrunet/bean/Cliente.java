@@ -37,17 +37,8 @@ public class Cliente implements Serializable{
     @Column(name = "NombresCliente")
     private String nombresCliente;
     
-    @Column(name = "ApePaternoCliente")
-    private String apePaternoCliente;
-    
-    @Column(name = "ApeMaternoCliente")
-    private String apeMaternoCliente;
-    
     @Column(name = "DireccionCliente")
     private String direccionCliente;
-    
-    @Column(name = "AliasCliente")
-    private String aliasCliente;
     
     @Column(name = "FechaRegistroCliente")
     private LocalDateTime fechaRegistroCliente;
@@ -64,24 +55,18 @@ public class Cliente implements Serializable{
     public Cliente() {
     }
 
-    public Cliente(String codCliente, String nombresCliente, String apePaternoCliente, String apeMaternoCliente, String direccionCliente, String aliasCliente, LocalDateTime fechaRegistroCliente, String estadoCliente) {
+    public Cliente(String codCliente, String nombresCliente, String direccionCliente, LocalDateTime fechaRegistroCliente, String estadoCliente) {
         this.codCliente = codCliente;
         this.nombresCliente = nombresCliente;
-        this.apePaternoCliente = apePaternoCliente;
-        this.apeMaternoCliente = apeMaternoCliente;
         this.direccionCliente = direccionCliente;
-        this.aliasCliente = aliasCliente;
         this.fechaRegistroCliente = fechaRegistroCliente;
         this.estadoCliente = estadoCliente;
     }
 
-    public Cliente(String codCliente, String nombresCliente, String apePaternoCliente, String apeMaternoCliente, String direccionCliente, String aliasCliente, LocalDateTime fechaRegistroCliente, String estadoCliente, Servicio servicio) {
+    public Cliente(String codCliente, String nombresCliente, String direccionCliente, LocalDateTime fechaRegistroCliente, String estadoCliente, Servicio servicio) {
         this.codCliente = codCliente;
         this.nombresCliente = nombresCliente;
-        this.apePaternoCliente = apePaternoCliente;
-        this.apeMaternoCliente = apeMaternoCliente;
         this.direccionCliente = direccionCliente;
-        this.aliasCliente = aliasCliente;
         this.fechaRegistroCliente = fechaRegistroCliente;
         this.estadoCliente = estadoCliente;
         this.servicio = servicio;
@@ -105,22 +90,6 @@ public class Cliente implements Serializable{
         this.nombresCliente = nombresCliente;
     }
 
-    public String getApePaternoCliente() {
-        return apePaternoCliente;
-    }
-
-    public void setApePaternoCliente(String apePaternoCliente) {
-        this.apePaternoCliente = apePaternoCliente;
-    }
-
-    public String getApeMaternoCliente() {
-        return apeMaternoCliente;
-    }
-
-    public void setApeMaternoCliente(String apeMaternoCliente) {
-        this.apeMaternoCliente = apeMaternoCliente;
-    }
-
     public String getDireccionCliente() {
         return direccionCliente;
     }
@@ -128,15 +97,6 @@ public class Cliente implements Serializable{
     public void setDireccionCliente(String direccionCliente) {
         this.direccionCliente = direccionCliente;
     }
-
-    public String getAliasCliente() {
-        return aliasCliente;
-    }
-
-    public void setAliasCliente(String aliasCliente) {
-        this.aliasCliente = aliasCliente;
-    }
-    
 
     public LocalDateTime getFechaRegistroCliente() {
         return fechaRegistroCliente;
@@ -174,10 +134,7 @@ public class Cliente implements Serializable{
     public String toString() {
         return "Cliente{" + "codCliente=" + codCliente 
                 + ", nombresCliente=" + nombresCliente 
-                + ", apePaternoCliente=" + apePaternoCliente 
-                + ", apeMaternoCliente=" + apeMaternoCliente 
                 + ", direccionCliente=" + direccionCliente 
-                + ", aliasCliente=" + aliasCliente
                 + ", fechaRegistroCliente=" 
                 + fechaRegistroCliente 
                 + ", estadoCliente=" 
@@ -187,7 +144,7 @@ public class Cliente implements Serializable{
 
     
     public String getNombresCompletos(){
-        return nombresCliente+" "+apePaternoCliente+" "+apeMaternoCliente;
+        return nombresCliente;
     }
      
 }

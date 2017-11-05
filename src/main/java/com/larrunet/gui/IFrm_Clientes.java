@@ -79,8 +79,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         Cliente cliente = null;
         for (Servicio servicio : listaClientes) {
             cliente = servicio.getCliente();
-            String nombres = cliente.getNombresCliente() + " " + cliente.getApePaternoCliente() + " " + cliente.getApeMaternoCliente();
-            Object[] row = {cliente.getCodCliente(), nombres, servicio.getPagoMensual(), servicio.getEstadoServicio()};
+            Object[] row = {cliente.getCodCliente(), cliente.getNombresCompletos(), servicio.getPagoMensual(), servicio.getEstadoServicio()};
             model.addRow(row);
         }
 
@@ -124,16 +123,10 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtApellidoPaterno = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtApellidoMaterno = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        txtAlias = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtPagoMensual = new javax.swing.JTextField();
@@ -163,17 +156,11 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombres:");
 
-        jLabel2.setText("Apellido Paterno:");
-
-        jLabel3.setText("Apellido Materno:");
-
         jLabel4.setText("CodCliente:");
 
         txtIdCliente.setEditable(false);
 
         jLabel5.setText("Direccion:");
-
-        jLabel10.setText("Alias:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,37 +168,20 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDireccion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(4, 4, 4)
                         .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtApellidoPaterno)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAlias))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDireccion)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,15 +192,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -314,7 +276,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(cboAntenaEmisora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -469,14 +431,14 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -536,20 +498,6 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (txtApellidoPaterno.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese el apellido paterno", "FALTA INGRESAR APELLIDO PATERNO", JOptionPane.WARNING_MESSAGE);
-            txtApellidoPaterno.requestFocus();
-            campos_validados = false;
-            return;
-        }
-
-        if (txtApellidoMaterno.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese el apellido materno", "FALTA INGRESAR APELLIDO MATERNO", JOptionPane.WARNING_MESSAGE);
-            txtApellidoMaterno.requestFocus();
-            campos_validados = false;
-            return;
-        }
-
         if (txtDireccion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese una direccion", "FALTA INGRESAR DIRECCION", JOptionPane.WARNING_MESSAGE);
             txtDireccion.requestFocus();
@@ -589,10 +537,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
             if (editar) {
                 Cliente cliente = servicio.getCliente();
                 cliente.setNombresCliente(txtNombres.getText());
-                cliente.setApePaternoCliente(txtApellidoPaterno.getText());
-                cliente.setApeMaternoCliente(txtApellidoMaterno.getText());
                 cliente.setDireccionCliente(txtDireccion.getText());
-                cliente.setAliasCliente(txtAlias.getText());
                 
                 servicio.setPagoMensual(Double.parseDouble(txtPagoMensual.getText()));
                 servicio.setObservacion(txtObservacion.getText());
@@ -625,10 +570,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
                 Cliente cliente = new Cliente();
 
                 cliente.setNombresCliente(txtNombres.getText());
-                cliente.setApePaternoCliente(txtApellidoPaterno.getText());
-                cliente.setApeMaternoCliente(txtApellidoMaterno.getText());
                 cliente.setDireccionCliente(txtDireccion.getText());
-                cliente.setAliasCliente(txtAlias.getText());
                 cliente.setFechaRegistroCliente(LocalDateTime.now());
                 
                 servicio.setPagoMensual(Double.parseDouble(txtPagoMensual.getText()));
@@ -667,11 +609,8 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private void limpiarCampos() {
         clearTxt(txtIdCliente);
         clearTxt(txtNombres);
-        clearTxt(txtApellidoPaterno);
-        clearTxt(txtApellidoMaterno);
         clearTxt(txtDireccion);
         clearTxt(txtPagoMensual);
-        clearTxt(txtAlias);
         txtObservacion.setText(null);
         cboAntenaEmisora.setSelectedIndex(0);
         servicio = null;
@@ -751,10 +690,7 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
 
         txtIdCliente.setText(cliente.getCodCliente());
         txtNombres.setText(cliente.getNombresCliente());
-        txtApellidoPaterno.setText(cliente.getApePaternoCliente());
-        txtApellidoMaterno.setText(cliente.getApeMaternoCliente());
         txtDireccion.setText(cliente.getDireccionCliente());
-        txtAlias.setText(cliente.getAliasCliente());
 
         txtPagoMensual.setText(Double.toString(servicio.getPagoMensual()));
         txtObservacion.setText(servicio.getObservacion());
@@ -787,9 +723,8 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
         int selectedRow = tblClientes.getSelectedRow();
         Servicio servicio = listaClientes.get(selectedRow);
         Cliente cliente = servicio.getCliente();
-        String nombres_completos = cliente.getNombresCliente() + " " + cliente.getApePaternoCliente() + " " + cliente.getApeMaternoCliente();
-
-        String msg = "¿Está seguro de eliminar el cliente " + nombres_completos + " ?";
+        
+        String msg = "¿Está seguro de eliminar el cliente " + cliente.getNombresCompletos() + " ?";
 
         int respuesta = JOptionPane.showConfirmDialog(this, msg, "CONFIRMAR ELIMINACION", JOptionPane.YES_NO_OPTION);
 
@@ -834,9 +769,6 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cboAntenaEmisora;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -855,9 +787,6 @@ public class IFrm_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rbtHabilitado;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblHotspot;
-    private javax.swing.JTextField txtAlias;
-    private javax.swing.JTextField txtApellidoMaterno;
-    private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtNombres;
