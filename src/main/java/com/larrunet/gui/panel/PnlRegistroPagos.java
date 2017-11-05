@@ -27,22 +27,24 @@ import java.util.Locale;
 import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author kael
  */
 public class PnlRegistroPagos extends javax.swing.JPanel {
+
     Servicio servicio;
     PagoDAO daopagos;
     IFrm_RegistrarPago frame;
-    
+
     JDialog dialogParent;
-    
+
     Reportes reporte;
-    
+
     private boolean campos_validados;
-    
+
     /**
      * Creates new form PnlRegistroPagos
      */
@@ -51,14 +53,14 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         initObjects();
         cargarDatos();
     }
-    
+
     public PnlRegistroPagos(IFrm_RegistrarPago frame) {
         this.frame = frame;
         initComponents();
         initObjects();
         cargarDatos();
     }
-    
+
     public PnlRegistroPagos(JDialog dialogParent) {
         this.dialogParent = dialogParent;
         initComponents();
@@ -66,11 +68,10 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         cargarDatos();
     }
 
-    
-    public void initObjects(){
+    public void initObjects() {
         daopagos = new PagoDAO();
     }
-    
+
     private void cargarDatos() {
         Date fechaActual = new Date();
         dtpFechaInicio.setDate(fechaActual);
@@ -83,6 +84,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         dtpFechaVenc.setDate(fechaVenc);
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -296,7 +298,6 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void validarCampos() {
         if (txtMontoPagar.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el monto a pagar", "FALTA INGRESAR MONTO A PAGAR", JOptionPane.WARNING_MESSAGE);
@@ -304,7 +305,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
             campos_validados = false;
             return;
         }
-        
+
         if (txtMontoRecibido.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese el monto recibido", "FALTA INGRESAR MONTO RECIBIDO", JOptionPane.WARNING_MESSAGE);
             txtMontoRecibido.requestFocus();
@@ -314,21 +315,18 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
 
         campos_validados = true;
     }
-    
-    
-    
-    
+
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         //if(dialogParent==null) Frame f = JOptionPane.getFrameForComponent(this);
         DialogBuscarCliente dialog = null;
-        if(dialogParent!=null){
+        if (dialogParent != null) {
             dialog = new DialogBuscarCliente(dialogParent, true, this);
-        }
-        else if(frame!=null){
+        } else if (frame != null) {
             Frame f = JOptionPane.getFrameForComponent(this);
             dialog = new DialogBuscarCliente(f, true, this);
         }
-           
+
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -339,41 +337,54 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
 
     private void btnRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPagoActionPerformed
         validarCampos();
-        
-        if(campos_validados){
+
+        if (campos_validados) {
             registrarPago();
         }
-        
+
     }//GEN-LAST:event_btnRegistrarPagoActionPerformed
 
+    private void limpiar() {
+        clearTXT(txtNombres);
+        clearTXT(txtPagoMensual);
+        clearTXT(txtEstado);
+        clearTXT(txtMontoPagar);
+        clearTXT(txtMontoRecibido);
+        cargarDatos();
+        servicio = null;
+    }
+
+    private void clearTXT(JTextField txt) {
+        txt.setText(null);
+    }
+
     private void txtMontoPagarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoPagarKeyTyped
-        char keychar=evt.getKeyChar();
-        
-        if( (keychar<'0' || keychar>'9') && keychar!=KeyEvent.VK_BACK_SPACE){
+        char keychar = evt.getKeyChar();
+
+        if ((keychar < '0' || keychar > '9') && keychar != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
         }
-        
-        if(txtMontoPagar.getText().length()==0){
+
+        if (txtMontoPagar.getText().length() == 0) {
             txtMontoPagar.setText("0");
             txtMontoPagar.selectAll();
         }
     }//GEN-LAST:event_txtMontoPagarKeyTyped
 
     private void txtMontoRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoRecibidoKeyTyped
-        char keychar=evt.getKeyChar();
-        
-        if( (keychar<'0' || keychar>'9') && keychar!=KeyEvent.VK_BACK_SPACE){
+        char keychar = evt.getKeyChar();
+
+        if ((keychar < '0' || keychar > '9') && keychar != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
         }
-        
-        if(txtMontoRecibido.getText().length()==0){
+
+        if (txtMontoRecibido.getText().length() == 0) {
             txtMontoRecibido.setText("0");
             txtMontoRecibido.selectAll();
         }
     }//GEN-LAST:event_txtMontoRecibidoKeyTyped
 
-    
-    private void registrarPago(){
+    private void registrarPago() {
         if (servicio != null) {
             Pago pago = new Pago();
 
@@ -396,7 +407,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
 
             LocalDate fechaInicio = dateToLocalDate(dtpFechaInicio.getDate());
             LocalDate fechaVenc = dateToLocalDate(dtpFechaVenc.getDate());
-            
+
             pago.setFechaEmision(LocalDateTime.now());
             pago.setFechaInicio(fechaInicio);
             pago.setFechaVencimiento(fechaVenc);
@@ -408,33 +419,39 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
             servicio.setFechaInicio(fechaInicio);
             servicio.setFechaVenc(fechaVenc);
             servicio.setEstadoServicio("HABILITADO");
-            
-            if(daopagos.registrarPago(pago, this)){
-                if(frame!=null) frame.dispose();
-                else if(dialogParent!=null) dialogParent.dispose();
+
+            if (daopagos.registrarPago(pago, this)) {
                 JOptionPane.showMessageDialog(this, "¡Pago registrado correctamente!", "REGISTRO SATISFACTORIO", JOptionPane.INFORMATION_MESSAGE);
-                mostrarInforme();
-            }else{
+                
+                if (chkMostrarPDF.isSelected()) {
+                    if (frame != null) {
+                        frame.dispose();
+                    } else if (dialogParent != null) {
+                        dialogParent.dispose();
+                    }
+                    mostrarInforme();
+                }
+
+                limpiar();
+            } else {
                 JOptionPane.showMessageDialog(this, "¡No se pudo registrar el pago!", "ERROR AL REGISTRAR PAGO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Especifique el cliente al que se le va a cobrar", "FALTA CLIENTE", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
-    
-    public void prepararInforme(Pago pago, Connection cn){
-        Map parametros =new HashMap();
+
+    public void prepararInforme(Pago pago, Connection cn) {
+        Map parametros = new HashMap();
         parametros.put("idPago", pago.getIdPago());
-        reporte=new Reportes();
+        reporte = new Reportes();
         reporte.prepararInforme("comprobantepago.jasper", parametros, cn);
     }
-    
-    public void mostrarInforme(){
+
+    public void mostrarInforme() {
         reporte.mostrarInforme();
     }
-    
+
     public void mostrarServicio(Servicio servicio) {
         this.servicio = servicio;
         txtNombres.setText(servicio.getCliente().getNombresCompletos());
@@ -447,7 +464,7 @@ public class PnlRegistroPagos extends javax.swing.JPanel {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
 
-        localDate = LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+        localDate = LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
 
         return localDate;
     }
