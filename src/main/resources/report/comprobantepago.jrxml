@@ -8,20 +8,18 @@
 		<![CDATA[SELECT
      CLIENTE.`CodCliente` AS CLIENTE_CodCliente,
      CLIENTE.`NombresCliente` AS CLIENTE_NombresCliente,
-     CLIENTE.`ApePaternoCliente` AS CLIENTE_ApePaternoCliente,
-     CLIENTE.`ApeMaternoCliente` AS CLIENTE_ApeMaternoCliente,
      PAGO.`IdPago` AS PAGO_IdPago,
      PAGO.`FechaInicio` AS PAGO_FechaInicio,
      PAGO.`FechaVenc` AS PAGO_FechaVenc,
      PAGO.`MontoPago` AS PAGO_MontoPago,
      PAGO.`EstadoPago` AS PAGO_EstadoPago
 FROM
-     `CLIENTE` CLIENTE INNER JOIN `PAGO` PAGO ON CLIENTE.`CodCliente` = PAGO.`CodCliente` WHERE PAGO.`IdPago`=$P{idPago}]]>
+     `CLIENTE` CLIENTE INNER JOIN `PAGO` PAGO ON CLIENTE.`CodCliente` = PAGO.`CodCliente`
+WHERE
+     PAGO.`IdPago` = $P{idPago}]]>
 	</queryString>
 	<field name="CLIENTE_CodCliente" class="java.lang.String"/>
 	<field name="CLIENTE_NombresCliente" class="java.lang.String"/>
-	<field name="CLIENTE_ApePaternoCliente" class="java.lang.String"/>
-	<field name="CLIENTE_ApeMaternoCliente" class="java.lang.String"/>
 	<field name="PAGO_IdPago" class="java.lang.Integer"/>
 	<field name="PAGO_FechaInicio" class="java.sql.Date"/>
 	<field name="PAGO_FechaVenc" class="java.sql.Date"/>
@@ -41,7 +39,7 @@ FROM
 					<font size="13"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Recibí de "+$F{CLIENTE_NombresCliente}+" "+$F{CLIENTE_ApePaternoCliente}+" "+$F{CLIENTE_ApeMaternoCliente}+" S/. "+$F{PAGO_MontoPago}+" por concepto de Internet del mes de "+new SimpleDateFormat("dd 'de' MMMMM ").format($F{PAGO_FechaInicio})+" al "+new SimpleDateFormat("dd 'de' MMMMM 'del' yyyy").format($F{PAGO_FechaVenc})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Recibí de "+$F{CLIENTE_NombresCliente}+" S/. "+$F{PAGO_MontoPago}+" por concepto de Internet del mes de "+new SimpleDateFormat("dd 'de' MMMMM ").format($F{PAGO_FechaInicio})+" al "+new SimpleDateFormat("dd 'de' MMMMM 'del' yyyy").format($F{PAGO_FechaVenc})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="189" width="555" height="74" uuid="6162c6c8-7ed8-47e8-9302-0eb73d984316"/>
