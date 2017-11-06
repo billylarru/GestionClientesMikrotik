@@ -84,6 +84,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_listaclientes.setActionCommand("ListaClientes");
         mi_exportar.setActionCommand("Exportar");
         mi_importar.setActionCommand("Importar");
+        
+        mi_importar.setVisible(false);
     }
     
     private void makeIFrame(String key){
