@@ -80,6 +80,7 @@ public class IFrm_ListaClientes extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblClientes);
 
         btnExportarLista.setText("Exportar lista");

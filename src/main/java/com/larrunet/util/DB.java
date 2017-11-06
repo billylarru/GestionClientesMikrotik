@@ -29,29 +29,8 @@ public class DB {
         this.dbPass = dbPass;
     }
 
-    public void Backupdbtosql() {
+    public void Backupdbtosql(String savePath) {
         try {
-
-            /*NOTE: Getting path to the Jar file being executed*/
- /*NOTE: YourImplementingClass-> replace with the class executing the code*/
-            CodeSource codeSource = DB.class.getProtectionDomain().getCodeSource();
-            File jarFile = new File(codeSource.getLocation().toURI().getPath());
-            String jarDir = jarFile.getParentFile().getPath();
-
-
-            /*NOTE: Creating Path Constraints for folder saving*/
- /*NOTE: Here the backup folder is created for saving inside it*/
-            String folderPath = jarDir + "/backup";
-
-            /*NOTE: Creating Folder if it does not exist*/
-            File f1 = new File(folderPath);
-            f1.mkdir();
-
-            /*NOTE: Creating Path Constraints for backup saving*/
- /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-            String savePath = jarDir + "/backup/" + "backup.sql";
-
-            System.out.println(savePath);
             
             /*NOTE: Used to create a cmd command*/
             //String executeCmd = "mysqldump -u " + dbUser + " -p" + dbPass + " --database " + dbName + " -r " + savePath;
@@ -65,12 +44,14 @@ public class DB {
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
             if (processComplete == 0) {
                 System.out.println("Backup Complete");
+                JOptionPane.showMessageDialog(null, "¡Datos exportados!");
             } else {
                 System.out.println("Backup Failure");
+                JOptionPane.showMessageDialog(null, "¡Error al exportar!");
             }
 
-        } catch (URISyntaxException | IOException | InterruptedException ex) {
-            JOptionPane.showMessageDialog(null, "Error at Backuprestore" + ex.getMessage());
+        } catch (IOException | InterruptedException ex) {
+            JOptionPane.showMessageDialog(null, "Error al generar el Backup" + ex.getMessage());
         }
     }
     
