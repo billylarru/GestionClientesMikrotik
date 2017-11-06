@@ -63,6 +63,11 @@
                 <Property name="text" type="java.lang.String" value="Exportar datos"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mi_importar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Importar datos"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

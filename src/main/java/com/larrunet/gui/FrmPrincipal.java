@@ -73,6 +73,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_vencimientos.addActionListener(al);
         mi_listaclientes.addActionListener(al);
         mi_exportar.addActionListener(al);
+        mi_importar.addActionListener(al);
         
         mi_cliente.setActionCommand("Clientes");
         mi_antenas.setActionCommand("Antenas");
@@ -82,6 +83,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_vencimientos.setActionCommand("VencServicios");
         mi_listaclientes.setActionCommand("ListaClientes");
         mi_exportar.setActionCommand("Exportar");
+        mi_importar.setActionCommand("Importar");
     }
     
     private void makeIFrame(String key){
@@ -98,6 +100,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             else if(key.equalsIgnoreCase("VencServicios")) iframe = new IFrm_VencServicios();
             else if(key.equalsIgnoreCase("ListaClientes")) iframe = new IFrm_ListaClientes();
             else if(key.equalsIgnoreCase("Exportar")) iframe = new IFrm_Exportar();
+            else if(key.equalsIgnoreCase("Importar")) iframe = new IFrm_Importar();
 
             HashList.getInstance().getList().put(key, iframe);
             
@@ -139,6 +142,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         mi_listaclientes = new javax.swing.JMenuItem();
         mi_exportar = new javax.swing.JMenuItem();
+        mi_importar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Pagos L@rrunet");
@@ -225,6 +229,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mi_exportar.setText("Exportar datos");
         jMenu3.add(mi_exportar);
 
+        mi_importar.setText("Importar datos");
+        jMenu3.add(mi_importar);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -272,6 +279,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_antenas;
     private javax.swing.JMenuItem mi_cliente;
     private javax.swing.JMenuItem mi_exportar;
+    private javax.swing.JMenuItem mi_importar;
     private javax.swing.JMenuItem mi_lineas;
     private javax.swing.JMenuItem mi_listaclientes;
     private javax.swing.JMenuItem mi_personal;
