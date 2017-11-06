@@ -8,6 +8,11 @@ package com.larrunet.gui;
 import com.larrunet.util.DB;
 import com.larrunet.util.IFrameListener;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -18,22 +23,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class IFrm_Exportar extends javax.swing.JInternalFrame {
 
-    
-    private JFileChooser selector=new JFileChooser();
+    private JFileChooser selector = new JFileChooser();
     private transient FileNameExtensionFilter filtro = new FileNameExtensionFilter("Todos los archivos *.sql", "sql");
-    
+
     private String ruta;
     private boolean campos_validados;
-    
+
     /**
      * Creates new form IFrm_Exportar
      */
     public IFrm_Exportar() {
         initComponents();
         this.addInternalFrameListener(new IFrameListener());
-       // selector.setFileSelectionMode(JFileChooser.FILES_ONLY);
-       selector.addChoosableFileFilter(filtro);
-       selector.setApproveButtonText("Guardar"); 
+        // selector.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        selector.addChoosableFileFilter(filtro);
+        selector.setApproveButtonText("Guardar");
     }
 
     /**
@@ -103,50 +107,67 @@ public class IFrm_Exportar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    void validarCampos(){
-        if(txtDestino.getText().isEmpty()){
+    void validarCampos() {
+        if (txtDestino.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Especifique donde se guardará el backup", "FALTA INDICAR RUTA", JOptionPane.WARNING_MESSAGE);
             campos_validados = false;
             return;
         }
         campos_validados = true;
     }
-    
-    
+
+
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         validarCampos();
-        
-        if(campos_validados){
+
+        if (campos_validados) {
             exportar();
-        } 
+        }
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         examinar();
     }//GEN-LAST:event_btnBuscarActionPerformed
-    
-    void exportar(){
-        DB db = new DB("db_mikrotik_clients", "root", "root");
-        db.Backupdbtosql(ruta);
+
+    void exportar() {
+        Properties props = new Properties();
+        InputStream is = getClass().getResourceAsStream("/META-INF/db.properties");
+        try {
+            props.load(is);
+            
+            String url = props.getProperty("javax.persistence.jdbc.url");
+            
+            int endIndex = url.indexOf("?");
+            int beginIndex = url.lastIndexOf("/")+1;
+            
+            
+            String bd = url.substring(beginIndex, endIndex);
+            String user = props.getProperty("javax.persistence.jdbc.user");
+            String password = props.getProperty("javax.persistence.jdbc.password");
+
+            DB db = new DB(bd, user, password);
+            db.Backupdbtosql(ruta);
+        } catch (IOException ex) {
+            Logger.getLogger(IFrm_Exportar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-    
-    
-    void examinar(){
-        int seleccion=selector.showSaveDialog(null);
-        
-        if (seleccion==JFileChooser.APPROVE_OPTION) {
-                File fichero=selector.getSelectedFile();
-                
-                ruta = fichero.getAbsolutePath();
-                
-                if(!ruta.endsWith(".sql")){
-                    ruta+= ".sql";
-                }
-                
-                txtDestino.setText(ruta);
-                
-                
+
+    void examinar() {
+        int seleccion = selector.showSaveDialog(null);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File fichero = selector.getSelectedFile();
+
+            ruta = fichero.getAbsolutePath();
+
+            if (!ruta.endsWith(".sql")) {
+                ruta += ".sql";
             }
+
+            txtDestino.setText(ruta);
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
